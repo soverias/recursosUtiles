@@ -1,0 +1,34 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 35px 1fr 100px;
+    min-height: 100vh;
+    grid-template-areas:
+        "header header header"
+        "aside content content"
+        "footer footer footer"
+    ;
+}
+
+.container header {
+    grid-area: header;
+    background-color: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container aside {
+    grid-area: aside;
+    background-color: blue;
+}
+
+.container main {
+    grid-area: content;
+    background-color: pink;
+}
+
+.container footer {
+    grid-area: footer;
+    background-color: aqua;
+}
