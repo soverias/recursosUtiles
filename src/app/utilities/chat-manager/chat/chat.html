@@ -1,0 +1,12 @@
+<div>
+    <div id="chat">
+        @for (message of conversation(); track $index) {
+        <div>
+            <div><strong>{{message.userName}}:</strong> {{message.message}}</div>
+        </div>
+        }
+    </div>
+    <input class="form-control mb-1" type="text" [(ngModel)]="messageToSend" name="messageToSend" />
+    <button class="btn btn-primary" (click)="sendMessage()">Send</button>
+    <button class="btn btn-secondary" (click)="leave()">Leave</button>
+</div>
