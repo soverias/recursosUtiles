@@ -1,0 +1,8 @@
+@if (!selectedRoom()) {
+<div>
+    <chat-room-selector (selectedRoom)="setRoom($event)"></chat-room-selector>
+</div>
+}
+@else {
+<app-chat [chatRoom]="selectedRoom()" [userName]="userName()"></app-chat>
+}

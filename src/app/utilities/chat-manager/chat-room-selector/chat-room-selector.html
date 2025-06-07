@@ -1,0 +1,18 @@
+<ul>
+
+    @if (!rooms().length) {
+    <p>cargando rooms</p>
+    }
+    @else{
+    @for (item of rooms(); track $index) {
+        <li>
+            <button class="btn btn-link" (click)="setRoom(item)">
+                {{item}}
+            </button>
+        </li>
+        }
+    }
+
+    <label>Crear nueva sala <input type="text" class="text"  [(ngModel)]="newRoom"> </label>
+    <button (click)="addRoom()">Add room</button>
+</ul>
