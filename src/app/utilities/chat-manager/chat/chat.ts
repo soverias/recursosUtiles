@@ -1,6 +1,7 @@
 import { Component, input, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
+import { Room } from '../domain/room';
 @Component({
   selector: 'app-chat',
   imports: [FormsModule],
@@ -9,7 +10,7 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
 })
 export class Chat implements OnInit {
 
-  public chatRoom = input.required<string>();
+  public chatRoom = input.required<Room>();
 
   public userName = input.required<string>();
 
@@ -43,9 +44,9 @@ export class Chat implements OnInit {
   }
 
   public join() {
-    this.connection.invoke('JoinGroup', this.chatRoom(), this.userName)
+    this.connection.invoke('JoinGroup', this.chatRoom().Name, this.userName)
       .then(_ => {
-        console.log(`Joined group: ${this.chatRoom()}`);
+        console.log(`Joined group: ${this.chatRoom().Name}`);
       });
   }
 
@@ -54,7 +55,7 @@ export class Chat implements OnInit {
     const newMessage: NewMessage = {
       message: this.messageToSend(),
       userName: this.userName(),
-      groupName: this.chatRoom()
+      groupName: this.chatRoom().Name
     };
 
     this.connection.invoke('SendMessage', newMessage)
