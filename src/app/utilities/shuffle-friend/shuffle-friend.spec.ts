@@ -10,7 +10,7 @@ describe('ShuffleFriend', () => {
     await TestBed.configureTestingModule({
       imports: [ShuffleFriend]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ShuffleFriend);
     component = fixture.componentInstance;

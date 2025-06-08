@@ -4,15 +4,15 @@
     <p>cargando rooms</p>
     }
     @else{
-    @for (item of rooms(); track $index) {
+    @for (room of rooms(); track room.Id) {
         <li>
-            <button class="btn btn-link" (click)="setRoom(item)">
-                {{item}}
+            <button class="btn btn-link" (click)="setRoom(room)">
+                {{room.Name}}
             </button>
         </li>
         }
     }
 
-    <label>Crear nueva sala <input type="text" class="text"  [(ngModel)]="newRoom"> </label>
+    <label>Crear nueva sala <input type="text" class="text"  [(ngModel)]="newRoomName"> </label>
     <button (click)="addRoom()">Add room</button>
 </ul>

@@ -1,6 +1,7 @@
 import { Component, input, OnInit, output, signal } from '@angular/core';
-import { RoomService } from '../services/room';
+import { RoomService } from '../services/room.service';
 import { FormsModule } from '@angular/forms';
+import { Room } from '../domain/room';
 
 @Component({
   selector: 'chat-room-selector',
@@ -9,29 +10,34 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule]
 })
 export class ChatRoomSelector implements OnInit {
-  public newRoom?: string;
-  public selectedRoom = output<string>();
+  public newRoomName?: string;
+  public selectedRoom = output<Room>();
 
-  public rooms = signal<string[]>([]);
-
+  public rooms = signal<Room[]>([]);
   constructor(public roomService: RoomService) {
   }
 
   ngOnInit(): void {
-    this.roomService.getRooms().subscribe((rooms: string[]) => {
+    this.roomService.getRooms().subscribe((rooms: Room[]) => {
       this.rooms.set(rooms);
     });
   }
 
-  public setRoom(room: string): void {
+  public setRoom(room: Room): void {
     this.selectedRoom.emit(room);
   }
 
   public addRoom() {
-    if (this.newRoom) {
-      this.roomService.addRoom(this.newRoom).subscribe(() => {
-        this.rooms.update(rooms => [...rooms, this.newRoom!]);
-        this.newRoom = '';
+    if (this.newRoomName) {
+      this.roomService.addRoom(this.newRoomName).subscribe((result) => {
+
+        if (!result.IsSuccesfull) {
+          console.error('Failed to add room:', result.Error);
+          return;
+        }
+
+        this.rooms.update(rooms => [...rooms, new Room(result.Value!.Id, this.newRoomName!)]);
+        this.newRoomName = '';
       });
     }
   }
