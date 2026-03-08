@@ -1,1 +1,13 @@
-<p>bang-game works!</p>
+<div class="game-wrapper">
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Bang Game</h1>
+            <button (click)="setPlayerReady()">Player is ready</button>
+            <button (click)="Shoot()">Shoot</button>
+        </div>
+        <div class="game-content">
+            <!-- Game content goes here -->
+            <canvas id="gameCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+        </div>
+    </div>
+</div>
