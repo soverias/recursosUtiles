@@ -18,7 +18,22 @@
       "Bash(ng generate:*)",
       "Bash(npm uninstall:*)",
       "Bash(ng add:*)",
-      "Bash(ng build:*)"
+      "Bash(ng build:*)",
+      "Read(//c/Users/sover/.agents/skills/angular-forms/**)",
+      "Read(//c/Users/sover/.agents/skills/angular-http/**)",
+      "Read(//c/Users/sover/.agents/skills/angular-new-app/**)",
+      "Read(//c/Users/sover/.agents/skills/angular-routing/**)",
+      "Read(//c/Users/sover/.agents/skills/angular-signals/**)",
+      "Bash(attrib \"C:/Users/sover/.claude/skills/angular-component/SKILL.md\")",
+      "Bash(attrib \"C:/Users/sover/.claude/skills/sdd-init/SKILL.md\")",
+      "Bash(attrib \"C:/Users/sover/.claude/skills/angular-component\")",
+      "Bash(attrib \"C:/Users/sover/.claude/skills/sdd-init\")",
+      "Bash(icacls \"C:/Users/sover/.claude/skills/angular-component\")",
+      "Bash(icacls \"C:/Users/sover/.claude/skills/sdd-init\")",
+      "Bash(ls C:/Users/sover/Documents/Desarrollo/recursosUtiles/vite*)",
+      "Bash(ls C:/Users/sover/Documents/Desarrollo/recursosUtiles/vitest*)",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d['projects']['store']['architect']['test'], indent=2\\)\\)\")",
+      "Bash(ng serve:*)"
     ]
   }
 }

@@ -1,0 +1,14 @@
+<header class="bg-slate-900 text-white shadow-lg">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+    <h1 class="text-xl font-bold tracking-tight">Store</h1>
+
+    @if (canInstall()) {
+      <button
+        (click)="install()"
+        class="rounded-lg bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+      >
+        Instalar App
+      </button>
+    }
+  </div>
+</header>
