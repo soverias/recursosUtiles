@@ -17,8 +17,9 @@ proposal → specs → design → tasks → apply → verify → archive
 Los specs de cada feature/change se guardan **co-localizados con el código**:
 
 ```
-src/app/games/bang-game/bang-game.spec.md
-src/app/utilities/shuffle-friend/shuffle-friend.spec.md
+projects/bang-game/src/app/bang-game.spec.md
+projects/shuffle-friend/src/app/shuffle-friend.spec.md
+projects/store/src/app/store.spec.md
 ```
 
 No implementes nada sin que exista un spec previo salvo instrucción explícita del usuario.
@@ -38,10 +39,9 @@ No implementes nada sin que exista un spec previo salvo instrucción explícita 
 
 ### Angular
 - Angular 20, standalone components
-- Angular Material para componentes UI (cards, botones, chips, iconos, formularios)
-- **Tailwind CSS** para layout, espaciado y utilidades — preferido sobre CSS custom
-- No escribir CSS custom salvo casos excepcionales que Material y Tailwind no cubran
-- Estructura de carpetas por feature: `src/app/{games,utilities}/nombre-feature/`
+- **Tailwind CSS** para todo el estilo — sin Angular Material
+- No escribir CSS custom salvo casos excepcionales que Tailwind no cubra
+- Estructura de carpetas por feature dentro de cada proyecto: `projects/<app>/src/app/<feature>/`
 - Nombres de ficheros en kebab-case, clases en PascalCase
 
 ### General

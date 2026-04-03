@@ -12,7 +12,13 @@
       "Bash(node -e \"const d=require\\('./angular.json'\\); const t=d.projects['recursos-utiles'].architect.test; console.log\\(JSON.stringify\\(t,null,2\\)\\)\")",
       "mcp__plugin_engram_engram__mem_session_summary",
       "Bash(rm -rf .angular .atl .vscode dist node_modules public src)",
-      "Bash(rm -f .editorconfig README.md angular.json eslint.config.js package-lock.json package.json tailwind.config.js tsconfig.app.json tsconfig.json tsconfig.spec.json)"
+      "Bash(rm -f .editorconfig README.md angular.json eslint.config.js package-lock.json package.json tailwind.config.js tsconfig.app.json tsconfig.json tsconfig.spec.json)",
+      "Bash(ng new:*)",
+      "Bash(rm .gitignore:*)",
+      "Bash(ng generate:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(ng add:*)",
+      "Bash(ng build:*)"
     ]
   }
 }

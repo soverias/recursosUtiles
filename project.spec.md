@@ -7,56 +7,54 @@ Tienda de aplicaciones gratuitas, simples y de uso rápido. Cada herramienta es 
 ## Stack
 
 ### Frontend
-- **Framework**: Angular 20
-- **UI**: Angular Material
+- **Framework**: Angular 20, standalone components
+- **UI**: Tailwind CSS (sin Angular Material)
 - **Lenguaje**: TypeScript 5.8
-- **Comunicación en tiempo real**: SignalR (`@microsoft/signalr`)
+- **Comunicación en tiempo real**: SignalR (`@microsoft/signalr`) — solo en apps que lo requieran
+- **Testing**: Karma + Jasmine (`ng test --project <nombre>`)
 
 ### Backend
 - **Framework**: .NET Core
 - **Comunicación**: SignalR
 - **Arquitectura**: Hexagonal con DDD
+- **Nota**: gestionado desde un repositorio independiente
 
-## Arquitectura acordada
+## Arquitectura
 
-### Multi-app PWA con subrutas
-
-La aplicación principal actúa como tienda/directorio. Cada herramienta es una Angular app independiente con su propio `manifest.json` y service worker, desplegada en una subruta:
-
-```
-/              ← tienda principal (store)
-/bang/         ← Bang Game (PWA instalable)
-/shuffle/      ← Shuffle Friend (PWA instalable)
-/chat/         ← Chat Manager (PWA instalable)
-```
-
-### Estructura de workspace (objetivo)
+### Workspace multi-proyecto Angular
 
 ```
 recursosUtiles/
   projects/
-    store/           ← app principal (tienda)
-    bang-game/       ← PWA independiente
-    shuffle-friend/  ← PWA independiente
-    chat-manager/    ← PWA independiente
+    store/           ← tienda principal (PWA instalable)
+    bang-game/       ← Bang Game (PWA instalable)
+    shuffle-friend/  ← Shuffle Friend (PWA instalable)
   angular.json       ← workspace multi-proyecto
 ```
 
-> La migración a workspace multi-proyecto es un cambio pendiente. Actualmente todo el código está en una única app Angular.
+Cada proyecto tiene su propio:
+- `manifest.webmanifest` y service worker (`@angular/pwa`)
+- `styles.css` con `@import "tailwindcss"`
+- `ngsw-config.json`
 
-## Herramientas actuales
+### Comandos por proyecto
 
-| Nombre | Ruta actual | Descripción | Backend |
-|--------|-------------|-------------|---------|
-| Bang Game | `src/app/games/bang-game/` | Juego de bang multijugador | Sí (SignalR) |
-| Shuffle Friend | `src/app/utilities/shuffle-friend/` | Sorteador de personas | No |
-| Chat Manager | `src/app/utilities/chat-manager/` | Chat en tiempo real | Sí (SignalR) |
+```bash
+ng serve --project store
+ng serve --project bang-game
+ng serve --project shuffle-friend
 
-## Estado actual del frontend
+ng build --project store
+ng test --project store
+```
 
-- HTML y CSS realizados manualmente, pendientes de revisar y refactorizar con Angular Material
-- El botón "Instalar PWA" existe en la home pero sin lógica implementada
-- No hay soporte PWA todavía (`@angular/pwa` no instalado)
+## Herramientas
+
+| Nombre | Proyecto | Descripción | Backend |
+|--------|----------|-------------|---------|
+| Store | `store` | Tienda/directorio de herramientas | No |
+| Bang Game | `bang-game` | Juego de bang multijugador | Sí (SignalR) |
+| Shuffle Friend | `shuffle-friend` | Sorteador de personas | No |
 
 ## Specs de cambios
 
