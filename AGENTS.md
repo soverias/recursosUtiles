@@ -14,12 +14,12 @@ Todo cambio relevante sigue el flujo SDD:
 proposal → specs → design → tasks → apply → verify → archive
 ```
 
-Los specs de cada feature/change se guardan **co-localizados con el código**:
+Los specs de cada micro-app se guardan en la **raíz del proyecto**:
 
 ```
-projects/bang-game/src/app/bang-game.spec.md
-projects/shuffle-friend/src/app/shuffle-friend.spec.md
-projects/store/src/app/store.spec.md
+projects/store/store.spec.md
+projects/bang-game/bang-game.spec.md
+projects/shuffle-friend/shuffle-friend.spec.md
 ```
 
 No implementes nada sin que exista un spec previo salvo instrucción explícita del usuario.

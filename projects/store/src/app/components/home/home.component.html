@@ -1,10 +1,17 @@
+<app-category-filter
+  [categories]="categories()"
+  [active]="activeCategory()"
+  (categorySelected)="activeCategory.set($event)"
+  class="mb-6 block"
+/>
+
 <section class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-  @for (tool of tools; track tool.id) {
+  @for (tool of filteredTools(); track tool.id) {
     <app-card [tool]="tool" />
   }
 </section>
 
-@if (tools.length === 0) {
+@if (filteredTools().length === 0) {
   <p class="py-12 text-center text-slate-500">
     No hay herramientas disponibles.
   </p>
