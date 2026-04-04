@@ -1,0 +1,35 @@
+@if (game.allRevealed()) {
+  <main>
+    <h1>¡Todos revelados!</h1>
+    <button data-reset (click)="resetGame()">Nuevo sorteo</button>
+  </main>
+} @else {
+  <main>
+    <h1>¿Quién eres?</h1>
+    <p>Pulsa tu nombre para ver a quién le toca tu regalo</p>
+    <ul>
+      @for (p of game.unrevealed(); track p.id) {
+        <li>
+          <button data-participant-btn (click)="selectParticipant(p)">{{ p.name }}</button>
+        </li>
+      }
+    </ul>
+  </main>
+}
+
+<app-confirm-dialog
+  [open]="confirmOpen()"
+  [title]="'¿Eres ' + (selectedParticipant()?.name ?? '') + '?'"
+  message="Asegúrate de que nadie más está mirando"
+  (confirm)="confirmReveal()"
+  (cancel)="cancelConfirm()"
+/>
+
+@if (revealing()) {
+  <app-reveal-card
+    [giverName]="selectedParticipant()?.name ?? ''"
+    [receiverName]="receiverName()"
+    (dismiss)="onDismiss()"
+  />
+  <app-countdown-timer [duration]="5" (timerEnd)="onDismiss()" />
+}

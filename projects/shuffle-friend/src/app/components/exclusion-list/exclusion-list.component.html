@@ -1,0 +1,27 @@
+@if (exclusions().length === 0) {
+  <p>Sin exclusiones</p>
+} @else {
+  <ul>
+    @for (ex of exclusions(); track ex.participantIdA + ex.participantIdB) {
+      <li>
+        <span>{{ participantName(ex.participantIdA) }} — {{ participantName(ex.participantIdB) }}</span>
+        <button aria-label="Eliminar exclusión" (click)="onRemove(ex.participantIdA, ex.participantIdB)">×</button>
+      </li>
+    }
+  </ul>
+}
+<div>
+  <select [value]="selectedA()" (change)="selectedA.set($any($event.target).value)" aria-label="Participante A">
+    <option value="">-- Elige --</option>
+    @for (p of participants(); track p.id) {
+      <option [value]="p.id">{{ p.name }}</option>
+    }
+  </select>
+  <select [value]="selectedB()" (change)="selectedB.set($any($event.target).value)" aria-label="Participante B">
+    <option value="">-- Elige --</option>
+    @for (p of participants(); track p.id) {
+      <option [value]="p.id">{{ p.name }}</option>
+    }
+  </select>
+  <button data-add-exclusion [disabled]="!canAdd()" (click)="onAdd()">Excluir</button>
+</div>

@@ -1,0 +1,26 @@
+<main>
+  <h1>Secret Friend</h1>
+
+  <section>
+    <h2>Participantes</h2>
+    <app-participant-list
+      [participants]="game.participants()"
+      (add)="onAddParticipant($event)"
+      (remove)="onRemoveParticipant($event)"
+    />
+  </section>
+
+  <section>
+    <h2>Exclusiones</h2>
+    <app-exclusion-list
+      [participants]="game.participants()"
+      [exclusions]="game.exclusions()"
+      (addExclusion)="onAddExclusion($event)"
+      (removeExclusion)="onRemoveExclusion($event)"
+    />
+  </section>
+
+  <button data-goto-shuffle [disabled]="!game.canShuffle()" (click)="goToShuffle()">
+    Ir a sortear
+  </button>
+</main>

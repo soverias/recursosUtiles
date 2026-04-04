@@ -1,0 +1,8 @@
+@if (open()) {
+  <div role="dialog">
+    <h2>{{ title() }}</h2>
+    <p>{{ message() }}</p>
+    <button data-confirm (click)="confirm.emit()">Confirmar</button>
+    <button data-cancel (click)="cancel.emit()">Cancelar</button>
+  </div>
+}

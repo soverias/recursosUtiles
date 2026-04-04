@@ -1,0 +1,8 @@
+<div>
+  <p>{{ giverName() }}</p>
+  @if (showing()) {
+    <p>Le toca regalar a: <strong>{{ receiverName() }}</strong></p>
+  } @else {
+    <button data-reveal (click)="reveal()">Ver a quién me toca</button>
+  }
+</div>

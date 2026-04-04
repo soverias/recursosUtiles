@@ -1,0 +1,11 @@
+<main>
+  <h1>¿Listos para el sorteo?</h1>
+  <p>{{ game.participants().length }} participantes · {{ game.exclusions().length }} exclusiones</p>
+
+  @if (error()) {
+    <p role="alert">No es posible realizar el sorteo con las exclusiones actuales. Revisa la configuración.</p>
+  }
+
+  <button data-shuffle (click)="doShuffle()">¡Sortear!</button>
+  <button data-back (click)="goBack()">Volver</button>
+</main>
