@@ -7,11 +7,13 @@ Tienda de aplicaciones gratuitas, simples y de uso rápido. Cada herramienta es 
 ## Stack
 
 ### Frontend
-- **Framework**: Angular 20, standalone components
-- **UI**: Tailwind CSS (sin Angular Material)
-- **Lenguaje**: TypeScript 5.8
-- **Comunicación en tiempo real**: SignalR (`@microsoft/signalr`) — solo en apps que lo requieran
-- **Testing**: Karma + Jasmine (`ng test --project <nombre>`)
+- **Framework**: Angular 21.2, standalone components (sin `standalone: true` explícito)
+- **UI**: Tailwind CSS v4 (sin Angular Material, sin custom CSS salvo excepción justificada)
+- **Lenguaje**: TypeScript 5.9
+- **State**: Signals (`signal()`, `computed()`, `input()`, `output()`)
+- **Change detection**: `ChangeDetectionStrategy.OnPush` siempre
+- **Testing**: Vitest vía `@angular/build:unit-test`, jsdom
+- **Comunicación en tiempo real**: SignalR — solo en apps que lo requieran
 
 ### Backend
 - **Framework**: .NET Core
@@ -19,46 +21,52 @@ Tienda de aplicaciones gratuitas, simples y de uso rápido. Cada herramienta es 
 - **Arquitectura**: Hexagonal con DDD
 - **Nota**: gestionado desde un repositorio independiente
 
-## Arquitectura
+## Workspace
 
-### Workspace multi-proyecto Angular
+Multi-proyecto Angular:
 
 ```
-recursosUtiles/
-  projects/
-    store/           ← tienda principal (PWA instalable)
-    bang-game/       ← Bang Game (PWA instalable)
-    shuffle-friend/  ← Shuffle Friend (PWA instalable)
-  angular.json       ← workspace multi-proyecto
+projects/
+  store/          ← tienda principal (PWA)
+  shuffle-friend/ ← Secret Friend (PWA)
+  bang-game/      ← Bang Game (PWA)
 ```
 
-Cada proyecto tiene su propio:
-- `manifest.webmanifest` y service worker (`@angular/pwa`)
-- `styles.css` con `@import "tailwindcss"`
-- `ngsw-config.json`
+Cada proyecto tiene su propio `manifest.webmanifest`, service worker y `ngsw-config.json`.
 
-### Comandos por proyecto
+## Comandos clave
 
 ```bash
-ng serve --project store
-ng serve --project bang-game
-ng serve --project shuffle-friend
-
-ng build --project store
-ng test --project store
+ng serve --project <nombre>
+ng build --project <nombre>
+ng test --project <nombre> --watch=false
 ```
 
-## Herramientas
+## Metodología
 
-| Nombre | Proyecto | Descripción | Backend |
-|--------|----------|-------------|---------|
-| Store | `store` | Tienda/directorio de herramientas | No |
-| Bang Game | `bang-game` | Juego de bang multijugador | Sí (SignalR) |
-| Shuffle Friend | `shuffle-friend` | Sorteador de personas | No |
+**Spec-Driven Development (SDD)** con strict TDD (RED → GREEN → TRIANGULATE).
 
-## Specs de cambios
+Cada change tiene artefactos co-localizados en `projects/<app>/`:
+- `<change>.spec.md` — requisitos y escenarios BDD
+- `<change>.design.md` — decisiones técnicas y arquitectura
+- `<change>.tasks.md` — checklist de implementación
 
-Cada cambio relevante tiene su spec co-localizado con el código afectado. Ver `AGENTS.md` para la convención completa.
+## Convenciones de código
+
+- Standalone components por defecto (NO `standalone: true` explícito)
+- `ChangeDetectionStrategy.OnPush` siempre
+- Signals para inputs/outputs/state
+- Tailwind para todo el estilo
+- `@Injectable({ providedIn: 'root' })` para servicios compartidos
+- Lazy-loaded routes con functional guards
+
+## Estado de los proyectos
+
+| Proyecto | Nombre | Estado | Tests |
+|----------|--------|--------|-------|
+| `store` | Store | ✅ | 28/28 |
+| `shuffle-friend` | Secret Friend | ✅ | 98/98 |
+| `bang-game` | Bang Game | 🚧 en desarrollo | — |
 
 ---
 
