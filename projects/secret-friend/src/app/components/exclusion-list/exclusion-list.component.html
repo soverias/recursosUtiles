@@ -1,0 +1,58 @@
+@if (exclusions().length === 0) {
+  <p class="text-gray-400 text-sm text-center py-2">Sin exclusiones</p>
+} @else {
+  <ul class="space-y-2 mb-4">
+    @for (ex of exclusions(); track ex.participantIdA + ex.participantIdB) {
+      <li class="flex items-center justify-between bg-amber-50 rounded-xl px-4 py-3">
+        <span class="text-sm text-gray-700">
+          <span class="font-medium">{{ participantName(ex.participantIdA) }}</span>
+          <span class="text-gray-400 mx-2">↔</span>
+          <span class="font-medium">{{ participantName(ex.participantIdB) }}</span>
+        </span>
+        <button
+          aria-label="Eliminar exclusión"
+          (click)="onRemove(ex.participantIdA, ex.participantIdB)"
+          class="w-7 h-7 flex items-center justify-center rounded-full text-gray-400
+                 hover:bg-red-100 hover:text-red-500 transition-colors text-lg leading-none"
+        >×</button>
+      </li>
+    }
+  </ul>
+}
+
+@if (participants().length >= 2) {
+  <div class="flex gap-2 flex-wrap">
+    <select
+      [value]="selectedA()"
+      (change)="selectedA.set($any($event.target).value)"
+      aria-label="Participante A"
+      class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2 text-sm
+             focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white"
+    >
+      <option value="">-- Elige --</option>
+      @for (p of participants(); track p.id) {
+        <option [value]="p.id">{{ p.name }}</option>
+      }
+    </select>
+    <select
+      [value]="selectedB()"
+      (change)="selectedB.set($any($event.target).value)"
+      aria-label="Participante B"
+      class="flex-1 min-w-0 border border-gray-200 rounded-xl px-3 py-2 text-sm
+             focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white"
+    >
+      <option value="">-- Elige --</option>
+      @for (p of participants(); track p.id) {
+        <option [value]="p.id">{{ p.name }}</option>
+      }
+    </select>
+    <button
+      data-add-exclusion
+      [disabled]="!canAdd()"
+      (click)="onAdd()"
+      class="px-4 py-2 rounded-xl bg-amber-500 text-white text-sm font-medium
+             hover:bg-amber-600 transition-colors
+             disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+    >Excluir</button>
+  </div>
+}

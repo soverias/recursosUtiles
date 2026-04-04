@@ -11,12 +11,12 @@ export const TOOLS: Tool[] = [
     color: '#b91c1c',
   },
   {
-    id: 'shuffle-friend',
-    name: 'Shuffle Friend',
+    id: 'secret-friend',
+    name: 'Secret Friend',
     description: 'Sortea amigos invisibles y gestiona grupos de forma rápida.',
     category: 'utilities',
-    icon: '🔀',
+    icon: '🎁',
     url: '#',
-    color: '#0369a1',
+    color: '#6366f1',
   },
 ];

@@ -28,7 +28,7 @@ Multi-proyecto Angular:
 ```
 projects/
   store/          ← tienda principal (PWA)
-  shuffle-friend/ ← Secret Friend (PWA)
+  secret-friend/ ← Secret Friend (PWA)
   bang-game/      ← Bang Game (PWA)
 ```
 
@@ -65,7 +65,7 @@ Cada change tiene artefactos co-localizados en `projects/<app>/`:
 | Proyecto | Nombre | Estado | Tests |
 |----------|--------|--------|-------|
 | `store` | Store | ✅ | 28/28 |
-| `shuffle-friend` | Secret Friend | ✅ | 98/98 |
+| `secret-friend` | Secret Friend | ✅ | 98/98 |
 | `bang-game` | Bang Game | 🚧 en desarrollo | — |
 
 ---

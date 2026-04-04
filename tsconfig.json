@@ -36,10 +36,10 @@
       "path": "./projects/bang-game/tsconfig.spec.json"
     },
     {
-      "path": "./projects/shuffle-friend/tsconfig.app.json"
+      "path": "./projects/secret-friend/tsconfig.app.json"
     },
     {
-      "path": "./projects/shuffle-friend/tsconfig.spec.json"
+      "path": "./projects/secret-friend/tsconfig.spec.json"
     }
   ]
 }

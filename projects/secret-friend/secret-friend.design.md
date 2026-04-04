@@ -51,7 +51,7 @@ reset(): void
 get<T>(key: string): T | null
 set<T>(key: string, value: T): void
 remove(key: string): void
-// prefix: 'shuffle-friend:'
+// prefix: 'secret-friend:'
 ```
 
 ## Algoritmo de sorteo
@@ -79,7 +79,7 @@ canActivateReveal:  assignments().length > 0   ? true : createUrlTree(['/setup']
 ## Estructura de ficheros
 
 ```
-projects/shuffle-friend/src/app/
+projects/secret-friend/src/app/
 ├── models/           participant, exclusion, assignment, game-phase
 ├── services/         game.service, storage.service
 ├── utils/            shuffle-assignments

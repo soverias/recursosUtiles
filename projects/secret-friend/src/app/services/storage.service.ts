@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
-  private readonly PREFIX = 'shuffle-friend:';
+  private readonly PREFIX = 'secret-friend:';
 
   get<T>(key: string): T | null {
     try {

@@ -2,7 +2,14 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, 
 
 @Component({
   selector: 'app-countdown-timer',
-  template: '<span>{{ remaining() }}</span>',
+  template: `
+    <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
+      <div class="bg-white/20 backdrop-blur rounded-full w-14 h-14 flex items-center justify-center
+                  text-white font-bold text-2xl border-2 border-white/40">
+        {{ remaining() }}
+      </div>
+    </div>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountdownTimerComponent implements OnInit {

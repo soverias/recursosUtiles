@@ -1,6 +1,6 @@
-# Spec: `secret-friend` — shuffle-friend
+# Spec: `secret-friend` — secret-friend
 
-> Change ID: `secret-friend` | App: `shuffle-friend` | Stack: Angular 21.2 · standalone · OnPush · signals · Tailwind CSS v4 · Vitest
+> Change ID: `secret-friend` | App: `secret-friend` | Stack: Angular 21.2 · standalone · OnPush · signals · Tailwind CSS v4 · Vitest
 > Estado: **COMPLETADO** — 98/98 tests ✅
 
 ---

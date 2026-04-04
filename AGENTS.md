@@ -19,7 +19,7 @@ Los specs de cada micro-app se guardan en la **raíz del proyecto**:
 ```
 projects/store/store.spec.md
 projects/bang-game/bang-game.spec.md
-projects/shuffle-friend/shuffle-friend.spec.md
+projects/secret-friend/secret-friend.spec.md
 ```
 
 No implementes nada sin que exista un spec previo salvo instrucción explícita del usuario.

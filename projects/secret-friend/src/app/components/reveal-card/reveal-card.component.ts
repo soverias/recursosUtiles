@@ -19,6 +19,9 @@ export class RevealCardComponent implements OnInit {
 
   protected reveal(): void {
     this.showing.set(true);
+  }
+
+  protected close(): void {
     this.dismiss.emit();
   }
 }

@@ -34,11 +34,21 @@ describe('RevealCardComponent', () => {
     expect(text).toContain('Bob');
   });
 
-  it('emits dismiss when reveal button clicked', () => {
+  it('does NOT emit dismiss when reveal button clicked (only shows the name)', () => {
     setup();
     const spy = vi.spyOn(fixture.componentInstance.dismiss, 'emit');
     const btn = fixture.nativeElement.querySelector('button[data-reveal]');
     btn.click();
+    fixture.detectChanges();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('emits dismiss when close button clicked after reveal', () => {
+    setup();
+    const spy = vi.spyOn(fixture.componentInstance.dismiss, 'emit');
+    fixture.nativeElement.querySelector('button[data-reveal]').click();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('button.mt-6').click();
     expect(spy).toHaveBeenCalled();
   });
 

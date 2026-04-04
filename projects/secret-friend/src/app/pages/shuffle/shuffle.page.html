@@ -1,0 +1,38 @@
+<div class="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center p-4">
+  <div class="max-w-sm w-full text-center">
+
+    <div class="text-6xl mb-6">🎲</div>
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">¿Listos para sortear?</h1>
+    <p class="text-gray-500 mb-8">
+      <span class="font-semibold text-indigo-600">{{ game.participants().length }}</span> participantes
+      @if (game.exclusions().length > 0) {
+        · <span class="font-semibold text-amber-500">{{ game.exclusions().length }}</span> exclusiones
+      }
+    </p>
+
+    @if (error()) {
+      <div role="alert" class="bg-red-50 border border-red-200 text-red-700 rounded-2xl px-4 py-3 text-sm mb-6">
+        No es posible realizar el sorteo con las exclusiones actuales. Revisa la configuración.
+      </div>
+    }
+
+    <button
+      data-shuffle
+      (click)="doShuffle()"
+      class="w-full py-5 rounded-2xl bg-indigo-600 text-white font-bold text-xl
+             hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200 mb-4"
+    >
+      ¡Sortear! 🎁
+    </button>
+
+    <button
+      data-back
+      (click)="goBack()"
+      class="w-full py-3 rounded-2xl text-gray-500 font-medium
+             hover:bg-white transition-colors text-sm"
+    >
+      ← Volver a configuración
+    </button>
+
+  </div>
+</div>

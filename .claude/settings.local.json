@@ -33,7 +33,23 @@
       "Bash(ls C:/Users/sover/Documents/Desarrollo/recursosUtiles/vite*)",
       "Bash(ls C:/Users/sover/Documents/Desarrollo/recursosUtiles/vitest*)",
       "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d['projects']['store']['architect']['test'], indent=2\\)\\)\")",
-      "Bash(ng serve:*)"
+      "Bash(ng serve:*)",
+      "Bash(npx ng:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(ls C:/Users/sover/Documents/Desarrollo/recursosUtiles/projects/shuffle-friend/*.spec.md)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(list\\(d.get\\('projects',{}\\).keys\\(\\)\\), indent=2\\)\\)\")",
+      "Bash(node:*)",
+      "Bash(ls /c/Users/sover/Documents/Desarrollo/recursosUtiles/projects/shuffle-friend/*.md)",
+      "Bash(pkill -f \"ng serve\")",
+      "Bash(git mv:*)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(sed -i 's|shuffle-friend|secret-friend|g' /c/Users/sover/Documents/Desarrollo/recursosUtiles/AGENTS.md)",
+      "Bash(sed -i 's|shuffle-friend|secret-friend|g' /c/Users/sover/Documents/Desarrollo/recursosUtiles/project.spec.md)",
+      "Bash(sed -i 's|shuffle-friend|secret-friend|g' /c/Users/sover/Documents/Desarrollo/recursosUtiles/projects/secret-friend/secret-friend.spec.md)",
+      "Bash(sed -i 's|shuffle-friend|secret-friend|g' /c/Users/sover/Documents/Desarrollo/recursosUtiles/projects/secret-friend/secret-friend.design.md)",
+      "Bash(sed -i 's|shuffle-friend|secret-friend|g' /c/Users/sover/Documents/Desarrollo/recursosUtiles/projects/secret-friend/src/app/services/storage.service.spec.ts)"
     ]
   }
 }

@@ -1,0 +1,37 @@
+@if (participants().length === 0) {
+  <p class="text-gray-400 text-sm text-center py-4">Sin participantes todavía</p>
+} @else {
+  <ul class="space-y-2 mb-4">
+    @for (p of participants(); track p.id) {
+      <li class="flex items-center justify-between bg-indigo-50 rounded-xl px-4 py-3">
+        <span class="font-medium text-gray-800">{{ p.name }}</span>
+        <button
+          (click)="onRemove(p.id)"
+          [attr.aria-label]="'Eliminar ' + p.name"
+          class="w-7 h-7 flex items-center justify-center rounded-full text-gray-400
+                 hover:bg-red-100 hover:text-red-500 transition-colors text-lg leading-none"
+        >×</button>
+      </li>
+    }
+  </ul>
+}
+
+<div class="flex gap-2">
+  <input
+    [value]="newName()"
+    (input)="newName.set($any($event.target).value)"
+    (keydown.enter)="onAdd()"
+    placeholder="Nombre del participante"
+    aria-label="Nombre del participante"
+    class="flex-1 border border-gray-200 rounded-xl px-4 py-2 text-sm
+           focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400"
+  />
+  <button
+    data-add
+    [disabled]="!newName().trim()"
+    (click)="onAdd()"
+    class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-sm font-medium
+           hover:bg-indigo-700 transition-colors
+           disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+  >Añadir</button>
+</div>

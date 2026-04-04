@@ -1,0 +1,47 @@
+<div class="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 p-4">
+  <div class="max-w-lg mx-auto">
+
+    <div class="text-center py-8">
+      <h1 class="text-4xl font-bold text-indigo-700">🎁 Secret Friend</h1>
+      <p class="text-gray-500 mt-2">Organiza tu amigo invisible sin líos</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Participantes</h2>
+      <app-participant-list
+        [participants]="game.participants()"
+        (add)="onAddParticipant($event)"
+        (remove)="onRemoveParticipant($event)"
+      />
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Exclusiones</h2>
+      <p class="text-sm text-gray-400 mb-3">Parejas que no pueden tocarse entre sí</p>
+      <app-exclusion-list
+        [participants]="game.participants()"
+        [exclusions]="game.exclusions()"
+        (addExclusion)="onAddExclusion($event)"
+        (removeExclusion)="onRemoveExclusion($event)"
+      />
+    </div>
+
+    <button
+      data-goto-shuffle
+      [disabled]="!game.canShuffle()"
+      (click)="goToShuffle()"
+      class="w-full py-4 rounded-2xl text-white font-semibold text-lg transition-all
+             bg-indigo-600 hover:bg-indigo-700 active:scale-95
+             disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:scale-100"
+    >
+      Ir a sortear →
+    </button>
+
+    @if (!game.canShuffle()) {
+      <p class="text-center text-sm text-gray-400 mt-3">
+        Necesitas al menos 3 participantes para sortear
+      </p>
+    }
+
+  </div>
+</div>

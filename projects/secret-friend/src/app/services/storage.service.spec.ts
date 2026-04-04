@@ -12,7 +12,7 @@ describe('StorageService', () => {
 
   it('set stores value under the prefixed key', () => {
     service.set('key', { foo: 'bar' });
-    const raw = localStorage.getItem('shuffle-friend:key');
+    const raw = localStorage.getItem('secret-friend:key');
     expect(raw).toBe(JSON.stringify({ foo: 'bar' }));
   });
 
@@ -30,11 +30,11 @@ describe('StorageService', () => {
   it('remove deletes the prefixed key', () => {
     service.set('removeMe', 42);
     service.remove('removeMe');
-    expect(localStorage.getItem('shuffle-friend:removeMe')).toBeNull();
+    expect(localStorage.getItem('secret-friend:removeMe')).toBeNull();
   });
 
   it('get returns null when localStorage contains corrupt JSON', () => {
-    localStorage.setItem('shuffle-friend:corrupt', '{invalid json}}}');
+    localStorage.setItem('secret-friend:corrupt', '{invalid json}}}');
     const result = service.get<object>('corrupt');
     expect(result).toBeNull();
   });

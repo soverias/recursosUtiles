@@ -1,0 +1,64 @@
+<div class="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 p-4">
+
+  @if (game.allRevealed()) {
+    <div class="max-w-sm mx-auto flex flex-col items-center justify-center min-h-screen text-center">
+      <div class="text-7xl mb-6">🎉</div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-3">¡Todos revelados!</h1>
+      <p class="text-gray-500 mb-8">Ya sabéis a quién le toca el regalo</p>
+      <button
+        data-reset
+        (click)="resetGame()"
+        class="w-full py-4 rounded-2xl bg-indigo-600 text-white font-semibold
+               hover:bg-indigo-700 active:scale-95 transition-all"
+      >
+        Nuevo sorteo
+      </button>
+    </div>
+
+  } @else {
+    <div class="max-w-sm mx-auto pt-8">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-gray-800">¿Quién eres?</h1>
+        <p class="text-gray-500 text-sm mt-1">Pulsa tu nombre para ver a quién le toca tu regalo</p>
+      </div>
+
+      <div class="space-y-3">
+        @for (p of game.unrevealed(); track p.id) {
+          <button
+            data-participant-btn
+            (click)="selectParticipant(p)"
+            class="w-full py-4 rounded-2xl bg-white border border-gray-100 shadow-sm
+                   text-gray-800 font-semibold text-lg
+                   hover:bg-indigo-50 hover:border-indigo-200 active:scale-95 transition-all"
+          >
+            {{ p.name }}
+          </button>
+        }
+      </div>
+
+      <p class="text-center text-xs text-gray-400 mt-6">
+        {{ game.participants().length - game.unrevealed().length }}/{{ game.participants().length }} revelados
+      </p>
+    </div>
+  }
+
+</div>
+
+<!-- Confirm dialog overlay -->
+<app-confirm-dialog
+  [open]="confirmOpen()"
+  [title]="'¿Eres ' + (selectedParticipant()?.name ?? '') + '?'"
+  message="Asegúrate de que nadie más está mirando la pantalla"
+  (confirm)="confirmReveal()"
+  (cancel)="cancelConfirm()"
+/>
+
+<!-- Reveal card overlay -->
+@if (revealing()) {
+  <app-reveal-card
+    [giverName]="selectedParticipant()?.name ?? ''"
+    [receiverName]="receiverName()"
+    (dismiss)="onDismiss()"
+  />
+  <app-countdown-timer [duration]="5" (timerEnd)="onDismiss()" />
+}

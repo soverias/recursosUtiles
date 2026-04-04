@@ -130,25 +130,25 @@
         }
       }
     },
-    "shuffle-friend": {
+    "secret-friend": {
       "projectType": "application",
       "schematics": {},
-      "root": "projects/shuffle-friend",
-      "sourceRoot": "projects/shuffle-friend/src",
+      "root": "projects/secret-friend",
+      "sourceRoot": "projects/secret-friend/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/shuffle-friend/src/main.ts",
-            "tsConfig": "projects/shuffle-friend/tsconfig.app.json",
+            "browser": "projects/secret-friend/src/main.ts",
+            "tsConfig": "projects/secret-friend/tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/shuffle-friend/public"
+                "input": "projects/secret-friend/public"
               }
             ],
-            "styles": ["projects/shuffle-friend/src/styles.css"]
+            "styles": ["projects/secret-friend/src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -165,7 +165,7 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": "projects/shuffle-friend/ngsw-config.json"
+              "serviceWorker": "projects/secret-friend/ngsw-config.json"
             },
             "development": {
               "optimization": false,
@@ -179,10 +179,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "shuffle-friend:build:production"
+              "buildTarget": "secret-friend:build:production"
             },
             "development": {
-              "buildTarget": "shuffle-friend:build:development"
+              "buildTarget": "secret-friend:build:development"
             }
           },
           "defaultConfiguration": "development"
