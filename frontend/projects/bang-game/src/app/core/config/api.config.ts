@@ -1,2 +1,4 @@
-export const API_BASE = 'http://localhost:5000/api';
-export const HUB_URL = 'http://localhost:5000/hubs/game';
+import { environment } from '../../../environments/environment';
+
+export const API_BASE = environment.apiBase;
+export const HUB_URL = environment.hubUrl;

@@ -50,7 +50,7 @@ builder.Services
             {
                 var token = ctx.Request.Query["access_token"];
                 if (!string.IsNullOrEmpty(token) &&
-                    ctx.HttpContext.Request.Path.StartsWithSegments("/gamehub"))
+                    ctx.HttpContext.Request.Path.StartsWithSegments("/hubs/game"))
                     ctx.Token = token;
                 return Task.CompletedTask;
             }

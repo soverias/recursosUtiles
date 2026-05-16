@@ -108,7 +108,13 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": "projects/bang-game/ngsw-config.json"
+              "serviceWorker": "projects/bang-game/ngsw-config.json",
+              "fileReplacements": [
+                {
+                  "replace": "projects/bang-game/src/environments/environment.ts",
+                  "with": "projects/bang-game/src/environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
