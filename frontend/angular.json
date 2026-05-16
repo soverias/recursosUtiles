@@ -203,6 +203,68 @@
         }
       }
     },
+    "qr-generator": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/qr-generator",
+      "sourceRoot": "projects/qr-generator/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/qr-generator/src/main.ts",
+            "tsConfig": "projects/qr-generator/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/qr-generator/public"
+              }
+            ],
+            "styles": ["projects/qr-generator/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all",
+              "serviceWorker": "projects/qr-generator/ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "qr-generator:build:production"
+            },
+            "development": {
+              "buildTarget": "qr-generator:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    },
     "password-generator": {
       "projectType": "application",
       "schematics": {},

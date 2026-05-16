@@ -1,0 +1,104 @@
+<main class="min-h-screen flex items-start sm:items-center justify-center px-4 py-6">
+  <div class="w-full max-w-md flex flex-col gap-5">
+
+    <!-- Header -->
+    <header class="text-center">
+      <h1 class="text-2xl font-bold tracking-tight text-sky-300">Generador de QR</h1>
+      <p class="text-sm text-[var(--c-muted)] mt-1">Texto, URLs, lo que sea. Escanea con cualquier móvil.</p>
+    </header>
+
+    <!-- Input -->
+    <section class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)]/80 backdrop-blur p-4 flex flex-col gap-3">
+      <label for="text" class="text-sm font-medium">Texto o URL</label>
+      <textarea
+        id="text"
+        rows="3"
+        [value]="text()"
+        (input)="text.set($any($event.target).value)"
+        placeholder="https://example.com"
+        class="w-full resize-y rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] px-3 py-2 text-sm text-[var(--c-text)] placeholder:text-[var(--c-muted)] focus:border-sky-500 focus:outline-none"
+      ></textarea>
+
+      <!-- ECC selector -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium">Corrección de errores</span>
+          <span class="text-xs text-[var(--c-muted)]">
+            @for (level of eccLevels; track level.value) {
+              @if (level.value === ecc()) {
+                <span>{{ level.recovery }} recuperable</span>
+              }
+            }
+          </span>
+        </div>
+        <div class="grid grid-cols-4 gap-1.5">
+          @for (level of eccLevels; track level.value) {
+            <button
+              type="button"
+              (click)="setEcc(level.value)"
+              [ngClass]="level.value === ecc()
+                ? 'bg-sky-500 text-white'
+                : 'bg-[var(--c-surface-2)] text-[var(--c-text)]'"
+              class="h-10 rounded-lg font-semibold text-sm border border-[var(--c-border)] hover:border-sky-400 transition"
+            >
+              {{ level.label }}
+            </button>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- QR preview -->
+    <section class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)]/80 backdrop-blur p-4">
+      @if (svgRaw().ok) {
+        <div
+          class="rounded-xl overflow-hidden bg-white p-4 aspect-square w-full max-w-xs mx-auto"
+          [innerHTML]="svgSafe()"
+        ></div>
+      } @else {
+        <div class="aspect-square w-full max-w-xs mx-auto rounded-xl border border-dashed border-[var(--c-border)] flex items-center justify-center text-center p-6">
+          <span class="text-sm text-[var(--c-muted)]">{{ $any(svgRaw()).error }}</span>
+        </div>
+      }
+    </section>
+
+    <!-- Actions -->
+    <section class="grid grid-cols-2 gap-2">
+      <button
+        type="button"
+        (click)="downloadSvg()"
+        [disabled]="!svgRaw().ok"
+        class="h-12 rounded-xl font-semibold bg-sky-500 hover:bg-sky-400 active:bg-sky-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition"
+      >SVG</button>
+      <button
+        type="button"
+        (click)="downloadPng()"
+        [disabled]="!svgRaw().ok"
+        class="h-12 rounded-xl font-semibold bg-sky-500 hover:bg-sky-400 active:bg-sky-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition"
+      >PNG</button>
+      <button
+        type="button"
+        (click)="copyText()"
+        class="h-12 rounded-xl font-semibold border border-[var(--c-border)] bg-[var(--c-surface-2)] hover:border-sky-400 transition"
+      >
+        @if (copied()) {
+          <span>Copiado ✓</span>
+        } @else {
+          <span>Copiar texto</span>
+        }
+      </button>
+      @if (canShareFiles) {
+        <button
+          type="button"
+          (click)="share()"
+          [disabled]="!svgRaw().ok"
+          class="h-12 rounded-xl font-semibold border border-[var(--c-border)] bg-[var(--c-surface-2)] hover:border-sky-400 disabled:opacity-40 transition"
+        >Compartir</button>
+      }
+    </section>
+
+    <footer class="text-center text-xs text-[var(--c-muted)] py-2">
+      Generación 100% local. Nada sale de tu dispositivo.
+    </footer>
+  </div>
+</main>

@@ -37,4 +37,13 @@ export const TOOLS: Tool[] = [
     url: '/password-generator/',
     color: '#8b5cf6',
   },
+  {
+    id: 'qr-generator',
+    name: 'Generador de QR',
+    description: 'Genera códigos QR para texto, URLs o wifi. Descarga SVG/PNG, comparte directo desde el móvil.',
+    category: 'generators',
+    icon: '🔳',
+    url: '/qr-generator/',
+    color: '#0ea5e9',
+  },
 ];
