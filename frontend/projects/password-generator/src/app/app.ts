@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { PasswordGeneratorService, buildCharset } from './core/services/password-generator.service';
 import { HistoryService } from './core/services/history.service';
 import { DEFAULT_OPTIONS, GenerateOptions } from './core/models/options.model';
+import { copyToClipboard } from '@shared/util';
 
 @Component({
   selector: 'app-root',
@@ -55,15 +56,11 @@ export class App {
 
   protected async copy(value: string = this.password()): Promise<void> {
     if (!value) return;
-    try {
-      await navigator.clipboard.writeText(value);
-      this.history.add(value);
-      this.copied.set(true);
-      setTimeout(() => this.copied.set(false), 2000);
-    } catch {
-      // Fallback: silently no-op. Modern browsers support clipboard API
-      // in both secure and insecure contexts for user-initiated events.
-    }
+    const ok = await copyToClipboard(value);
+    if (!ok) return;
+    this.history.add(value);
+    this.copied.set(true);
+    setTimeout(() => this.copied.set(false), 2000);
   }
 
   protected toggleHistory(): void {
