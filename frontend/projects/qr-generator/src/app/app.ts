@@ -1,15 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
-import { copyToClipboard, EccLevel, generateQrSvg } from '@shared/util';
-
-const ECC_LEVELS: ReadonlyArray<{ value: EccLevel; label: string; recovery: string }> = [
-  { value: 'L', label: 'L', recovery: '~7%' },
-  { value: 'M', label: 'M', recovery: '~15%' },
-  { value: 'Q', label: 'Q', recovery: '~25%' },
-  { value: 'H', label: 'H', recovery: '~30%' },
-];
+import { copyToClipboard, generateQrSvg } from '@shared/util';
 
 const PNG_SIZE = 1024;
 
@@ -17,26 +9,27 @@ const PNG_SIZE = 1024;
   selector: 'app-root',
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, NgClass],
+  imports: [FormsModule],
 })
 export class App {
   private readonly sanitizer = inject(DomSanitizer);
 
   protected readonly text = signal<string>('https://recursosutiles.local');
-  protected readonly ecc  = signal<EccLevel>('M');
   protected readonly copied = signal<boolean>(false);
 
-  protected readonly eccLevels = ECC_LEVELS;
   protected readonly canShareFiles = typeof navigator !== 'undefined'
     && typeof navigator.canShare === 'function';
 
+  // ECC se pasa siempre como 'L'; la librería sube automáticamente el nivel
+  // hasta donde los datos siguen cabiendo en el mismo tamaño de QR. Esto
+  // da máxima resiliencia para textos cortos sin penalizar textos largos.
   protected readonly svgRaw = computed<{ ok: true; svg: string } | { ok: false; error: string }>(() => {
     const value = this.text().trim();
     if (!value) return { ok: false, error: 'Escribe algo para generar tu QR' };
     try {
-      return { ok: true, svg: generateQrSvg({ text: value, ecc: this.ecc() }) };
+      return { ok: true, svg: generateQrSvg({ text: value, ecc: 'L' }) };
     } catch {
-      return { ok: false, error: 'Texto demasiado largo para este nivel ECC. Prueba a bajarlo o acorta el texto.' };
+      return { ok: false, error: 'El texto es demasiado largo para un QR. Acórtalo o usa un acortador de URLs.' };
     }
   });
 
@@ -44,10 +37,6 @@ export class App {
     const v = this.svgRaw();
     return v.ok ? this.sanitizer.bypassSecurityTrustHtml(v.svg) : null;
   });
-
-  protected setEcc(level: EccLevel): void {
-    this.ecc.set(level);
-  }
 
   protected async copyText(): Promise<void> {
     const ok = await copyToClipboard(this.text());

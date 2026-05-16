@@ -15,37 +15,9 @@
         rows="3"
         [value]="text()"
         (input)="text.set($any($event.target).value)"
-        placeholder="https://example.com"
+        placeholder="https://example.com o cualquier texto"
         class="w-full resize-y rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] px-3 py-2 text-sm text-[var(--c-text)] placeholder:text-[var(--c-muted)] focus:border-sky-500 focus:outline-none"
       ></textarea>
-
-      <!-- ECC selector -->
-      <div>
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium">Corrección de errores</span>
-          <span class="text-xs text-[var(--c-muted)]">
-            @for (level of eccLevels; track level.value) {
-              @if (level.value === ecc()) {
-                <span>{{ level.recovery }} recuperable</span>
-              }
-            }
-          </span>
-        </div>
-        <div class="grid grid-cols-4 gap-1.5">
-          @for (level of eccLevels; track level.value) {
-            <button
-              type="button"
-              (click)="setEcc(level.value)"
-              [ngClass]="level.value === ecc()
-                ? 'bg-sky-500 text-white'
-                : 'bg-[var(--c-surface-2)] text-[var(--c-text)]'"
-              class="h-10 rounded-lg font-semibold text-sm border border-[var(--c-border)] hover:border-sky-400 transition"
-            >
-              {{ level.label }}
-            </button>
-          }
-        </div>
-      </div>
     </section>
 
     <!-- QR preview -->
