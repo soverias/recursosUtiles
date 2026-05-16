@@ -21,7 +21,7 @@ describe('RankingPage', () => {
     fixture = TestBed.createComponent(RankingPage);
     http = TestBed.inject(HttpTestingController);
     fixture.detectChanges();
-    http.expectOne('http://localhost:5000/api/ranking').flush(MOCK_PLAYERS);
+    http.expectOne('http://localhost:5000/ranking').flush(MOCK_PLAYERS);
     fixture.detectChanges();
   });
 

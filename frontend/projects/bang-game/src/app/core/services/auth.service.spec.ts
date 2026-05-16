@@ -64,10 +64,10 @@ describe('AuthService', () => {
 
   // --- login ---
 
-  it('login sends POST http://localhost:5000/api/auth/login and sets authenticated state', () => {
+  it('login sends POST http://localhost:5000/auth/login and sets authenticated state', () => {
     service.login('alice', 'pass123').subscribe();
 
-    const req = http.expectOne('http://localhost:5000/api/auth/login');
+    const req = http.expectOne('http://localhost:5000/auth/login');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ username: 'alice', password: 'pass123' });
     req.flush({ id: 'u1', username: 'alice', token: 'jwt-token' });
@@ -82,7 +82,7 @@ describe('AuthService', () => {
 
   it('login stores JWT in localStorage', () => {
     service.login('alice', 'pass123').subscribe();
-    const req = http.expectOne('http://localhost:5000/api/auth/login');
+    const req = http.expectOne('http://localhost:5000/auth/login');
     req.flush({ id: 'u1', username: 'alice', token: 'jwt-token' });
 
     expect(localStorage.getItem('bang_token')).toBe('jwt-token');
@@ -90,10 +90,10 @@ describe('AuthService', () => {
 
   // --- register ---
 
-  it('register sends POST http://localhost:5000/api/auth/register and sets authenticated state', () => {
+  it('register sends POST http://localhost:5000/auth/register and sets authenticated state', () => {
     service.register('bob', 'pass456').subscribe();
 
-    const req = http.expectOne('http://localhost:5000/api/auth/register');
+    const req = http.expectOne('http://localhost:5000/auth/register');
     expect(req.request.method).toBe('POST');
     req.flush({ id: 'u2', username: 'bob', token: 'jwt-bob' });
 
@@ -104,7 +104,7 @@ describe('AuthService', () => {
     let errorReceived = false;
     service.register('alice', 'pass').subscribe({ error: () => (errorReceived = true) });
 
-    const req = http.expectOne('http://localhost:5000/api/auth/register');
+    const req = http.expectOne('http://localhost:5000/auth/register');
     req.flush({ message: 'Username no disponible' }, { status: 409, statusText: 'Conflict' });
 
     expect(errorReceived).toBe(true);
@@ -115,7 +115,7 @@ describe('AuthService', () => {
 
   it('logout resets currentUser to anonymous and clears storage', () => {
     service.login('alice', 'pass').subscribe();
-    http.expectOne('http://localhost:5000/api/auth/login').flush({ id: 'u1', username: 'alice', token: 'jwt' });
+    http.expectOne('http://localhost:5000/auth/login').flush({ id: 'u1', username: 'alice', token: 'jwt' });
 
     service.logout();
 
