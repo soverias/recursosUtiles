@@ -4,7 +4,7 @@ export const TOOLS: Tool[] = [
   {
     id: 'bang-game',
     name: 'Bang! Game',
-    description: 'Juego de cartas Bang! para partidas online con amigos.',
+    description: 'Duelo de reflejos multijugador: el primer toque tras la señal BANG gana. Tocar antes pierde.',
     category: 'games',
     icon: '🎯',
     url: '/bang-game/',
