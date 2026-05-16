@@ -7,7 +7,7 @@ export const TOOLS: Tool[] = [
     description: 'Juego de cartas Bang! para partidas online con amigos.',
     category: 'games',
     icon: '🎯',
-    url: '#',
+    url: '/bang-game/',
     color: '#b91c1c',
   },
   {
@@ -16,7 +16,7 @@ export const TOOLS: Tool[] = [
     description: 'Sortea amigos invisibles y gestiona grupos de forma rápida.',
     category: 'utilities',
     icon: '🎁',
-    url: '#',
+    url: '/secret-friend/',
     color: '#6366f1',
   },
   {
@@ -25,7 +25,7 @@ export const TOOLS: Tool[] = [
     description: 'Calculadora con conversor de unidades integrado: datos, peso, volumen, longitud y temperatura.',
     category: 'utilities',
     icon: '🧮',
-    url: '#',
+    url: '/calculator/',
     color: '#0d9488',
   },
 ];
