@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { copyToClipboard, generateQrSvg } from '@shared/util';
+import { generateQrSvg } from '@shared/util';
 
 const PNG_SIZE = 1024;
 
@@ -15,7 +15,6 @@ export class App {
   private readonly sanitizer = inject(DomSanitizer);
 
   protected readonly text = signal<string>('https://recursosutiles.local');
-  protected readonly copied = signal<boolean>(false);
 
   protected readonly canShareFiles = typeof navigator !== 'undefined'
     && typeof navigator.canShare === 'function';
@@ -37,13 +36,6 @@ export class App {
     const v = this.svgRaw();
     return v.ok ? this.sanitizer.bypassSecurityTrustHtml(v.svg) : null;
   });
-
-  protected async copyText(): Promise<void> {
-    const ok = await copyToClipboard(this.text());
-    if (!ok) return;
-    this.copied.set(true);
-    setTimeout(() => this.copied.set(false), 2000);
-  }
 
   protected downloadSvg(): void {
     const v = this.svgRaw();

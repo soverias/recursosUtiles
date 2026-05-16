@@ -41,30 +41,19 @@
         (click)="downloadSvg()"
         [disabled]="!svgRaw().ok"
         class="h-12 rounded-xl font-semibold bg-sky-500 hover:bg-sky-400 active:bg-sky-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition"
-      >SVG</button>
+      >Descargar SVG</button>
       <button
         type="button"
         (click)="downloadPng()"
         [disabled]="!svgRaw().ok"
         class="h-12 rounded-xl font-semibold bg-sky-500 hover:bg-sky-400 active:bg-sky-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition"
-      >PNG</button>
-      <button
-        type="button"
-        (click)="copyText()"
-        class="h-12 rounded-xl font-semibold border border-[var(--c-border)] bg-[var(--c-surface-2)] hover:border-sky-400 transition"
-      >
-        @if (copied()) {
-          <span>Copiado ✓</span>
-        } @else {
-          <span>Copiar texto</span>
-        }
-      </button>
+      >Descargar PNG</button>
       @if (canShareFiles) {
         <button
           type="button"
           (click)="share()"
           [disabled]="!svgRaw().ok"
-          class="h-12 rounded-xl font-semibold border border-[var(--c-border)] bg-[var(--c-surface-2)] hover:border-sky-400 disabled:opacity-40 transition"
+          class="col-span-2 h-12 rounded-xl font-semibold border border-[var(--c-border)] bg-[var(--c-surface-2)] hover:border-sky-400 disabled:opacity-40 transition"
         >Compartir</button>
       }
     </section>
