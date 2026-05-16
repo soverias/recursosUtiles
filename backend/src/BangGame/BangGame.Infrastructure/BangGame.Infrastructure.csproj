@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BangGame.Application\BangGame.Application.csproj" />
+    <ProjectReference Include="..\..\RecursosUtiles.SharedKernel\RecursosUtiles.SharedKernel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- All Microsoft.Extensions.* pinned to the same version to avoid downgrade errors -->
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"  Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Options"                      Version="10.0.5" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens"                   Version="8.9.0" />
+    <PackageReference Include="Npgsql"                                           Version="9.0.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt"                  Version="8.9.0" />
+  </ItemGroup>
+
+</Project>

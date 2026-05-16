@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_engram_engram__mem_search",
+      "mcp__plugin_engram_engram__mem_get_observation",
+      "Bash(xargs ls:*)",
+      "mcp__plugin_engram_engram__mem_save",
+      "Bash(ng test:*)",
+      "Bash(ng build:*)",
+      "mcp__plugin_engram_engram__mem_session_summary"
+    ]
+  }
+}

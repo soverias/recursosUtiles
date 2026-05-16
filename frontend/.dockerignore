@@ -1,0 +1,14 @@
+node_modules
+dist
+.angular
+.git
+.gitignore
+.dockerignore
+.vscode
+.idea
+**/*.spec.ts
+**/*.spec.md
+**/.atl
+*.md
+.env
+.env.*

@@ -8,7 +8,6 @@ describe('CountdownComponent', () => {
     vi.useFakeTimers();
     TestBed.configureTestingModule({ imports: [CountdownComponent] });
     fixture = TestBed.createComponent(CountdownComponent);
-    fixture.componentRef.setInput('seconds', 3);
     fixture.detectChanges();
   });
 
@@ -16,33 +15,29 @@ describe('CountdownComponent', () => {
     vi.useRealTimers();
   });
 
-  it('displays initial seconds value', () => {
-    expect(fixture.nativeElement.querySelector('[data-countdown]').textContent.trim()).toBe('3');
+  it('displays first step initially', () => {
+    expect(fixture.nativeElement.querySelector('[data-countdown]').textContent.trim()).toBe('Preparados');
   });
 
-  it('decrements each second', async () => {
+  it('advances to next step after 1 second', async () => {
     await vi.advanceTimersByTimeAsync(1000);
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('[data-countdown]').textContent.trim()).toBe('2');
+    expect(fixture.nativeElement.querySelector('[data-countdown]').textContent.trim()).toBe('Listos');
   });
 
-  it('emits countdownEnd when seconds reach 0', async () => {
+  it('emits countdownEnd after all steps complete', async () => {
     const spy = vi.fn();
     fixture.componentInstance.countdownEnd.subscribe(spy);
-    await vi.advanceTimersByTimeAsync(3000);
+    await vi.advanceTimersByTimeAsync(2000);
     fixture.detectChanges();
     expect(spy).toHaveBeenCalledOnce();
   });
 
-  // TRIANGULATE: different duration
-  it('works with seconds=1 — emits countdownEnd after 1 second', async () => {
-    const f2 = TestBed.createComponent(CountdownComponent);
-    f2.componentRef.setInput('seconds', 1);
-    f2.detectChanges();
+  it('does not emit countdownEnd before steps complete', async () => {
     const spy = vi.fn();
-    f2.componentInstance.countdownEnd.subscribe(spy);
-    await vi.advanceTimersByTimeAsync(1000);
-    f2.detectChanges();
-    expect(spy).toHaveBeenCalledOnce();
+    fixture.componentInstance.countdownEnd.subscribe(spy);
+    await vi.advanceTimersByTimeAsync(999);
+    fixture.detectChanges();
+    expect(spy).not.toHaveBeenCalled();
   });
 });

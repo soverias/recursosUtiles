@@ -35,7 +35,7 @@ describe('GameHubService', () => {
 
   it('joinPrivate invokes hub method JoinPrivate with room code', async () => {
     await service.joinPrivate('ABC123');
-    expect(signalr.invoke).toHaveBeenCalledWith('JoinPrivate', 'ABC123');
+    expect(signalr.invoke).toHaveBeenCalledWith('JoinPrivateRoom', 'ABC123');
   });
 
   it('createPrivateRoom invokes hub method CreatePrivateRoom', async () => {

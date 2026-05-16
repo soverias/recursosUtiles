@@ -23,7 +23,7 @@ export class GameHubService {
   }
 
   async joinPrivate(code: string): Promise<void> {
-    await this.signalr.invoke('JoinPrivate', code);
+    await this.signalr.invoke('JoinPrivateRoom', code);
   }
 
   async createPrivateRoom(): Promise<void> {

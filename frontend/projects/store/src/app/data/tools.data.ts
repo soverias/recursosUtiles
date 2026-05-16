@@ -19,4 +19,13 @@ export const TOOLS: Tool[] = [
     url: '#',
     color: '#6366f1',
   },
+  {
+    id: 'calculator',
+    name: 'Calculadora',
+    description: 'Calculadora con conversor de unidades integrado: datos, peso, volumen, longitud y temperatura.',
+    category: 'utilities',
+    icon: '🧮',
+    url: '#',
+    color: '#0d9488',
+  },
 ];

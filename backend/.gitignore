@@ -1,0 +1,15 @@
+# .NET build artifacts
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment files (secrets live in server .env)
+.env
+.env.*
+!.env.example

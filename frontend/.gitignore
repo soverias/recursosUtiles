@@ -1,5 +1,11 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
+# Environment files (secrets live in server .env)
+.env
+.env.local
+.env.production
+!.env.example
+
 # Compiled output
 /dist
 /tmp
@@ -43,3 +49,4 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 .claude/worktrees/
+.atl/

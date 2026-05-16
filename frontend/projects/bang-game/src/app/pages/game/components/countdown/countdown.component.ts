@@ -1,32 +1,34 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, input, OnInit, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, output, signal } from '@angular/core';
+
+const STEPS = ['Preparados', 'Listos'];
 
 @Component({
   selector: 'app-countdown',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex items-center justify-center">
-      <div data-countdown
-        class="w-28 h-28 rounded-full bg-gray-800 border-4 border-yellow-400 flex items-center justify-center text-6xl font-black text-white">
-        {{ remaining() }}
-      </div>
+      <p data-countdown class="text-5xl font-black text-white tracking-wide animate-pulse">
+        {{ label() }}
+      </p>
     </div>
   `,
 })
 export class CountdownComponent implements OnInit {
-  readonly seconds = input(3);
   readonly countdownEnd = output<void>();
 
-  readonly remaining = signal(0);
+  readonly label = signal(STEPS[0]);
   private readonly destroyRef = inject(DestroyRef);
+  private step = 0;
 
   ngOnInit(): void {
-    this.remaining.set(this.seconds());
     const handle = setInterval(() => {
-      this.remaining.update(v => v - 1);
-      if (this.remaining() <= 0) {
+      this.step++;
+      if (this.step >= STEPS.length) {
         clearInterval(handle);
         this.countdownEnd.emit();
+        return;
       }
+      this.label.set(STEPS[this.step]);
     }, 1000);
     this.destroyRef.onDestroy(() => clearInterval(handle));
   }

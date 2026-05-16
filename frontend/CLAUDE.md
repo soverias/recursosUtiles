@@ -5,7 +5,7 @@
 Antes de hacer cualquier cosa, lee siempre:
 
 1. `AGENTS.md` — convenciones, skills y forma de trabajar en este proyecto
-2. `project.spec.md` — descripción completa del proyecto, stack y arquitectura
+2. `../project.spec.md` — descripción completa del monorepo, principios, stack y estado global (vive en la raíz del monorepo)
 
 ## Metodología
 

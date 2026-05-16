@@ -17,13 +17,13 @@ type Tab = 'login' | 'register';
           <button
             data-tab-login
             (click)="activeTab.set('login')"
-            class="flex-1 py-2 rounded-lg text-sm font-semibold transition-colors"
+            class="flex-1 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors"
             [class]="activeTab() === 'login' ? 'bg-white text-gray-900' : 'text-gray-400'"
           >Iniciar sesión</button>
           <button
             data-tab-register
             (click)="activeTab.set('register')"
-            class="flex-1 py-2 rounded-lg text-sm font-semibold transition-colors"
+            class="flex-1 py-2 rounded-lg text-sm font-semibold cursor-pointer transition-colors"
             [class]="activeTab() === 'register' ? 'bg-white text-gray-900' : 'text-gray-400'"
           >Registrarse</button>
         </div>
@@ -41,7 +41,7 @@ type Tab = 'login' | 'register';
               <p data-error class="text-red-400 text-sm text-center">{{ error() }}</p>
             }
             <button data-login-btn type="button" (click)="onLogin()"
-              class="w-full py-3 rounded-xl bg-yellow-400 text-gray-900 font-bold hover:bg-yellow-300 active:scale-95 transition-all">
+              class="w-full py-3 rounded-xl bg-yellow-400 text-gray-900 font-bold cursor-pointer hover:bg-yellow-300 active:scale-95 transition-all">
               Iniciar sesión
             </button>
           </form>
@@ -60,7 +60,7 @@ type Tab = 'login' | 'register';
               <p data-error class="text-red-400 text-sm text-center">{{ error() }}</p>
             }
             <button data-register-btn type="button" (click)="onRegister()"
-              class="w-full py-3 rounded-xl bg-yellow-400 text-gray-900 font-bold hover:bg-yellow-300 active:scale-95 transition-all">
+              class="w-full py-3 rounded-xl bg-yellow-400 text-gray-900 font-bold cursor-pointer hover:bg-yellow-300 active:scale-95 transition-all">
               Registrarse
             </button>
           </form>
@@ -76,7 +76,7 @@ type Tab = 'login' | 'register';
         </div>
 
         <button data-guest-btn (click)="onGuest()"
-          class="w-full py-3 rounded-xl border border-gray-600 text-gray-300 font-semibold hover:border-gray-400 active:scale-95 transition-all">
+          class="w-full py-3 rounded-xl border border-gray-600 text-gray-300 font-semibold cursor-pointer hover:border-gray-400 active:scale-95 transition-all">
           Jugar como invitado
         </button>
       </div>

@@ -17,6 +17,11 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "projects/store/src/main.ts",
+            "server": "projects/store/src/main.server.ts",
+            "prerender": {
+              "discoverRoutes": false,
+              "routesFile": "projects/store/prerender-routes.txt"
+            },
             "tsConfig": "projects/store/tsconfig.app.json",
             "assets": [
               {
@@ -183,6 +188,68 @@
             },
             "development": {
               "buildTarget": "secret-friend:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "calculator": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/calculator",
+      "sourceRoot": "projects/calculator/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/calculator/src/main.ts",
+            "tsConfig": "projects/calculator/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/calculator/public"
+              }
+            ],
+            "styles": ["projects/calculator/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all",
+              "serviceWorker": "projects/calculator/ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "calculator:build:production"
+            },
+            "development": {
+              "buildTarget": "calculator:build:development"
             }
           },
           "defaultConfiguration": "development"

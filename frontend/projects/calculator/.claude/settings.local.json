@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_engram_engram__mem_search",
+      "Read(//c/Users/sover/Documents/Desarrollo/recursosUtiles/frontend/**)",
+      "Bash(npx nx:*)",
+      "Bash(python3 -c \"import json,sys; w=json.load\\(sys.stdin\\); print\\(list\\(w.get\\('projects',{}\\).keys\\(\\)\\)[:10]\\)\")",
+      "Bash(npx vitest:*)",
+      "Bash(npx ng:*)",
+      "mcp__plugin_engram_engram__mem_save",
+      "Bash(npm install:*)",
+      "Bash(ng build:*)",
+      "Bash(xargs grep:*)",
+      "Bash(node -e \"const m = require\\('@angular/ssr'\\); console.log\\(Object.keys\\(m\\)\\)\")"
+    ]
+  }
+}

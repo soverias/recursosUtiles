@@ -17,12 +17,12 @@ describe('BangButtonComponent', () => {
     expect(fixture.nativeElement.querySelector('[data-bang-area]')).not.toBeNull();
   });
 
-  it('does not emit tap event when not active', () => {
+  it('emits tap event when not active and tapConsumed is false (false start)', () => {
     create(false, false);
     const spy = vi.fn();
     fixture.componentInstance.tapped.subscribe(spy);
     fixture.nativeElement.querySelector('[data-bang-area]').click();
-    expect(spy).not.toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledOnce();
   });
 
   it('emits tap event when active and tapConsumed is false', () => {
@@ -47,8 +47,18 @@ describe('BangButtonComponent', () => {
     expect(fixture.nativeElement.textContent).toContain('BANG');
   });
 
-  it('shows waiting text when not active', () => {
+  it('shows "..." when not active and no label', () => {
     create(false, false);
-    expect(fixture.nativeElement.textContent).not.toContain('BANG');
+    expect(fixture.nativeElement.textContent).toContain('...');
+  });
+
+  it('shows custom label when provided and not active', () => {
+    TestBed.configureTestingModule({ imports: [BangButtonComponent] });
+    fixture = TestBed.createComponent(BangButtonComponent);
+    fixture.componentRef.setInput('active', false);
+    fixture.componentRef.setInput('tapConsumed', false);
+    fixture.componentRef.setInput('label', 'Preparados');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Preparados');
   });
 });

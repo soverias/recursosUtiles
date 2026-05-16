@@ -3,7 +3,7 @@ import { canActivateIdentity } from './core/guards/identity.guard';
 import { canActivateInRoom } from './core/guards/in-room.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'entry', pathMatch: 'full' },
+  { path: '', redirectTo: 'lobby', pathMatch: 'full' },
   {
     path: 'entry',
     loadComponent: () => import('./pages/entry/entry.page').then(m => m.EntryPage),

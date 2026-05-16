@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { GameStateService } from './game-state.service';
 import { RoomInfo, RoundResult } from '../../core/models/room.model';
 
-const roomInfo: RoomInfo = { roomId: 'r1', opponentUsername: 'Bob' };
+const roomInfo: RoomInfo = { roomId: 'r1', opponentUsername: 'Bob', myUsername: 'Me' };
 const result: RoundResult = {
   winnerId: 'u1', loserId: 'u2',
   winnerReactionMs: 220, loserReactionMs: 380,
@@ -46,10 +46,43 @@ describe('GameStateService', () => {
   // --- countdown ---
 
   it('countdownStart transitions both-ready → countdown', () => {
+    vi.useFakeTimers();
     service.opponentJoined(roomInfo);
     service.bothReady();
     service.countdownStart();
     expect(service.phase()).toBe('countdown');
+    vi.useRealTimers();
+  });
+
+  it('countdownStart sets initial label to first step', () => {
+    vi.useFakeTimers();
+    service.countdownStart();
+    expect(service.countdownLabel()).toBe('Preparados');
+    vi.useRealTimers();
+  });
+
+  it('countdownLabel advances after 1 second', async () => {
+    vi.useFakeTimers();
+    service.countdownStart();
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(service.countdownLabel()).toBe('Listos');
+    vi.useRealTimers();
+  });
+
+  it('countdownLabel keeps last step after interval ends', async () => {
+    vi.useFakeTimers();
+    service.countdownStart();
+    await vi.advanceTimersByTimeAsync(2000); // past all steps
+    expect(service.countdownLabel()).toBe('Listos');
+    vi.useRealTimers();
+  });
+
+  it('waitingBang clears countdownLabel', () => {
+    vi.useFakeTimers();
+    service.countdownStart();
+    service.waitingBang();
+    expect(service.countdownLabel()).toBe('');
+    vi.useRealTimers();
   });
 
   // --- waiting-bang ---
@@ -110,9 +143,64 @@ describe('GameStateService', () => {
   // TRIANGULATE: private room has code
 
   it('opponentJoined stores room code for private rooms', () => {
-    const privateRoom: RoomInfo = { roomId: 'r2', code: 'ABC123', opponentUsername: 'Ana' };
+    const privateRoom: RoomInfo = { roomId: 'r2', code: 'ABC123', opponentUsername: 'Ana', myUsername: 'Me' };
     service.opponentJoined(privateRoom);
     expect(service.room()?.code).toBe('ABC123');
+  });
+
+  // --- waiting-rematch ---
+
+  it('waitingRematch transitions result → waiting-rematch and clears lastResult', () => {
+    service.roundResult(result);
+    service.waitingRematch();
+    expect(service.phase()).toBe('waiting-rematch');
+    expect(service.lastResult()).toBeNull();
+  });
+
+  // --- opponentIsReady ---
+
+  it('opponentIsReady starts as false', () => {
+    expect(service.opponentIsReady()).toBe(false);
+  });
+
+  it('opponentReady sets opponentIsReady to true', () => {
+    service.opponentReady();
+    expect(service.opponentIsReady()).toBe(true);
+  });
+
+  it('bothReady resets opponentIsReady to false', () => {
+    service.opponentReady();
+    service.bothReady();
+    expect(service.opponentIsReady()).toBe(false);
+  });
+
+  it('reset resets opponentIsReady to false', () => {
+    service.opponentReady();
+    service.reset();
+    expect(service.opponentIsReady()).toBe(false);
+  });
+
+  // --- opponentWantsRepeat ---
+
+  it('opponentWantsRepeat starts as false', () => {
+    expect(service.opponentWantsRepeat()).toBe(false);
+  });
+
+  it('opponentWantsRematch sets opponentWantsRepeat to true', () => {
+    service.opponentWantsRematch();
+    expect(service.opponentWantsRepeat()).toBe(true);
+  });
+
+  it('waitingRematch resets opponentWantsRepeat to false', () => {
+    service.opponentWantsRematch();
+    service.waitingRematch();
+    expect(service.opponentWantsRepeat()).toBe(false);
+  });
+
+  it('reset resets opponentWantsRepeat to false', () => {
+    service.opponentWantsRematch();
+    service.reset();
+    expect(service.opponentWantsRepeat()).toBe(false);
   });
 
   // TRIANGULATE: false start result

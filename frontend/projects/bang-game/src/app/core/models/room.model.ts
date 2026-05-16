@@ -2,6 +2,7 @@ export interface RoomInfo {
   roomId: string;
   code?: string;
   opponentUsername: string;
+  myUsername: string;
 }
 
 export interface RoundResult {

@@ -1,3 +1,9 @@
+---
+status: implemented
+last_change: secret-friend
+last_verified: 2026-05-16
+---
+
 # Spec: `secret-friend` — secret-friend
 
 > Change ID: `secret-friend` | App: `secret-friend` | Stack: Angular 21.2 · standalone · OnPush · signals · Tailwind CSS v4 · Vitest

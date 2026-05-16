@@ -1,3 +1,9 @@
+---
+status: implemented
+last_change: store
+last_verified: 2026-05-16
+---
+
 # Spec: store
 
 **Change**: store  

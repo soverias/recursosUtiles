@@ -3,6 +3,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["projects/shared/src/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -40,6 +44,12 @@
     },
     {
       "path": "./projects/secret-friend/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/calculator/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/calculator/tsconfig.spec.json"
     }
   ]
 }

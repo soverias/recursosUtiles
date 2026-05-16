@@ -5,4 +5,5 @@ export type GamePhase =
   | 'countdown'
   | 'waiting-bang'
   | 'bang-active'
-  | 'result';
+  | 'result'
+  | 'waiting-rematch';
