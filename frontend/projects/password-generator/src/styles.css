@@ -1,0 +1,31 @@
+@import "tailwindcss";
+@source "../../shared/src";
+
+:root {
+  --c-bg:        #0b0a1a;
+  --c-surface:   #14132a;
+  --c-surface-2: #1c1a3a;
+  --c-border:    #2a2750;
+  --c-text:      #e9e8f5;
+  --c-muted:     #8b87b8;
+  --c-accent:    #a78bfa;
+  --c-accent-2: #8b5cf6;
+}
+
+html, body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Outfit', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, rgba(139, 92, 246, 0.18), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(167, 139, 250, 0.10), transparent 60%),
+    var(--c-bg);
+  background-attachment: fixed;
+}
+
+.font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }

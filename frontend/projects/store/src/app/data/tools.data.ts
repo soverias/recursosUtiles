@@ -28,4 +28,13 @@ export const TOOLS: Tool[] = [
     url: '/calculator/',
     color: '#0d9488',
   },
+  {
+    id: 'password-generator',
+    name: 'Generador de contraseñas',
+    description: 'Genera contraseñas seguras configurables: longitud, mayúsculas, números, símbolos. Con historial local.',
+    category: 'generators',
+    icon: '🔑',
+    url: '/password-generator/',
+    color: '#8b5cf6',
+  },
 ];

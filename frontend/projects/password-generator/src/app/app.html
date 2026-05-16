@@ -1,0 +1,162 @@
+<main class="min-h-screen flex items-start sm:items-center justify-center px-4 py-6">
+  <div class="w-full max-w-md flex flex-col gap-5">
+
+    <!-- Header -->
+    <header class="text-center">
+      <h1 class="text-2xl font-bold tracking-tight text-violet-300">Generador de contraseñas</h1>
+      <p class="text-sm text-[var(--c-muted)] mt-1">Genera, copia, listo.</p>
+    </header>
+
+    <!-- Password output -->
+    <section
+      class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)]/80 backdrop-blur p-4 shadow-lg shadow-violet-950/30"
+    >
+      <div class="flex items-start gap-3">
+        <div
+          class="font-mono text-lg sm:text-xl break-all flex-1 leading-tight tracking-tight text-violet-100 min-h-[3.5rem] flex items-center"
+          aria-live="polite"
+        >
+          @if (charsetEmpty()) {
+            <span class="text-amber-300/80 text-base">Selecciona al menos un conjunto</span>
+          } @else {
+            {{ password() }}
+          }
+        </div>
+        <button
+          type="button"
+          (click)="regenerate()"
+          [disabled]="charsetEmpty()"
+          class="shrink-0 size-10 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] hover:bg-[var(--c-border)] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition"
+          aria-label="Regenerar"
+          title="Regenerar"
+        >
+          <span class="text-lg">↻</span>
+        </button>
+      </div>
+
+      <button
+        type="button"
+        (click)="copy()"
+        [disabled]="charsetEmpty()"
+        class="mt-4 w-full h-12 rounded-xl font-semibold tracking-tight bg-violet-500 hover:bg-violet-400 active:bg-violet-600 disabled:opacity-40 disabled:cursor-not-allowed text-white transition flex items-center justify-center gap-2"
+      >
+        @if (copied()) {
+          <span>Copiada ✓</span>
+        } @else {
+          <span>Copiar</span>
+        }
+      </button>
+    </section>
+
+    <!-- Configuration -->
+    <section
+      class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)]/80 backdrop-blur p-4 flex flex-col gap-4"
+    >
+      <!-- Length -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="length" class="text-sm font-medium">Longitud</label>
+          <span class="font-mono text-violet-300 text-lg font-semibold">{{ length() }}</span>
+        </div>
+        <input
+          id="length"
+          type="range"
+          min="4"
+          max="64"
+          step="1"
+          [value]="length()"
+          (input)="onLengthInput($event)"
+          class="w-full accent-violet-500"
+        />
+      </div>
+
+      <!-- Toggles -->
+      <div class="flex flex-col gap-2 text-sm">
+        @for (toggle of [
+          { id: 'uppercase', label: 'Mayúsculas (A-Z)', sig: uppercase },
+          { id: 'lowercase', label: 'Minúsculas (a-z)', sig: lowercase },
+          { id: 'numbers',   label: 'Números (0-9)',    sig: numbers },
+          { id: 'symbols',   label: 'Símbolos (!@#$…)', sig: symbols },
+          { id: 'similar',   label: 'Excluir similares (1 l I 0 O)', sig: excludeSimilar },
+        ]; track toggle.id) {
+          <label
+            [for]="toggle.id"
+            class="flex items-center justify-between gap-3 py-2 px-1 cursor-pointer select-none rounded-lg hover:bg-[var(--c-surface-2)] transition"
+          >
+            <span>{{ toggle.label }}</span>
+            <input
+              [id]="toggle.id"
+              type="checkbox"
+              [checked]="toggle.sig()"
+              (change)="toggle.sig.set($any($event.target).checked)"
+              class="size-5 accent-violet-500 cursor-pointer"
+            />
+          </label>
+        }
+      </div>
+    </section>
+
+    <!-- History -->
+    <section
+      class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)]/80 backdrop-blur"
+    >
+      <button
+        type="button"
+        (click)="toggleHistory()"
+        class="w-full flex items-center justify-between p-4 text-left"
+      >
+        <span class="text-sm font-medium">
+          Historial
+          <span class="text-[var(--c-muted)] ml-1">({{ history.entries().length }})</span>
+        </span>
+        <span class="text-[var(--c-muted)] text-sm">{{ showHistory() ? '▼' : '▶' }}</span>
+      </button>
+
+      @if (showHistory()) {
+        <div class="border-t border-[var(--c-border)] p-2">
+          @if (history.entries().length === 0) {
+            <p class="text-sm text-[var(--c-muted)] text-center py-4">
+              Aún no has copiado ninguna contraseña.
+            </p>
+          } @else {
+            <ul class="flex flex-col gap-1">
+              @for (entry of history.entries(); track entry.createdAt) {
+                <li class="flex items-center gap-2 rounded-lg hover:bg-[var(--c-surface-2)] p-2">
+                  <div class="flex-1 min-w-0">
+                    <div class="font-mono text-sm truncate">{{ entry.password }}</div>
+                    <div class="text-xs text-[var(--c-muted)]">{{ formatTime(entry.createdAt) }}</div>
+                  </div>
+                  <button
+                    type="button"
+                    (click)="copy(entry.password)"
+                    class="size-8 rounded-md hover:bg-[var(--c-border)] flex items-center justify-center"
+                    aria-label="Copiar"
+                    title="Copiar"
+                  >📋</button>
+                  <button
+                    type="button"
+                    (click)="history.remove($index)"
+                    class="size-8 rounded-md hover:bg-[var(--c-border)] flex items-center justify-center"
+                    aria-label="Eliminar"
+                    title="Eliminar"
+                  >🗑</button>
+                </li>
+              }
+            </ul>
+            <button
+              type="button"
+              (click)="history.clear()"
+              class="mt-2 w-full text-xs text-[var(--c-muted)] hover:text-violet-300 py-2 transition"
+            >
+              Vaciar historial
+            </button>
+          }
+        </div>
+      }
+    </section>
+
+    <footer class="text-center text-xs text-[var(--c-muted)] py-2">
+      Todo se genera y guarda en tu dispositivo.
+    </footer>
+  </div>
+</main>
