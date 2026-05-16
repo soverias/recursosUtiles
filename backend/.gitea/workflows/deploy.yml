@@ -1,0 +1,22 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull latest code
+        run: |
+          cd ~/apps/recursosutiles/backend
+          git pull
+
+      - name: Rebuild and restart
+        run: |
+          cd ~/apps/recursosutiles
+          sudo docker compose build recursosutiles-backend
+          sudo docker compose up -d recursosutiles-backend
