@@ -2,6 +2,7 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Assignment, Exclusion, GamePhase, Participant } from '../models';
 import { shuffleAssignments } from '../utils/shuffle-assignments';
 import { StorageService } from './storage.service';
+import { randomUUID } from '@shared/util';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
@@ -43,7 +44,7 @@ export class GameService {
     if (this.participants().some(p => p.name.toLowerCase() === lower)) return;
     this.participants.update(ps => [
       ...ps,
-      { id: crypto.randomUUID(), name: trimmed },
+      { id: randomUUID(), name: trimmed },
     ]);
   }
 

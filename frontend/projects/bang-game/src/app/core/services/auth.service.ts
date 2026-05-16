@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { AuthState, User } from '../models/user.model';
 import { API_BASE } from '../config/api.config';
+import { randomUUID } from '@shared/util';
 
 const TOKEN_KEY = 'bang_token';
 const USER_KEY = 'bang_user';
@@ -31,7 +32,7 @@ export class AuthService {
   playAsGuest(): void {
     let id = sessionStorage.getItem(GUEST_ID_KEY);
     if (!id) {
-      id = crypto.randomUUID();
+      id = randomUUID();
       sessionStorage.setItem(GUEST_ID_KEY, id);
     }
     const suffix = id.slice(0, 4).toUpperCase();
