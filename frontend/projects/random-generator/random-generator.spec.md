@@ -3,9 +3,6 @@ status: partial
 last_change: random-generator
 last_verified: 2026-05-17
 pending: |
-  - Modo "rango libre" (slot machine)
-  - Modo "ruleta" (elegir de una lista)
-  - Modo "bola 8 mágica" (sí/no/tal vez)
   - Iconos PWA propios (actualmente placeholder copiados de qr-generator)
 ---
 
@@ -25,7 +22,7 @@ Angular 21.2 standalone + Tailwind CSS v4. Sin dependencias externas: animacione
 
 ### Requirement: Selector de modo
 
-El usuario MUST poder cambiar entre 3 modos en el MVP: `coin`, `d6`, `d20`. Los modos se muestran como una fila de 3 botones grandes con icono + etiqueta. Cambiar de modo NO debe ser posible durante una tirada en curso (botones deshabilitados).
+El usuario MUST poder cambiar entre 6 modos: `coin`, `d6`, `d20`, `slot`, `wheel`, `magic8`. Los modos se muestran en una grilla 2×3 de botones grandes con icono + etiqueta. Cambiar de modo NO debe ser posible durante una tirada en curso (botones deshabilitados).
 
 ### Requirement: Tirar
 
@@ -57,6 +54,28 @@ Al terminar la animación:
 - Animación: shake CSS (rotación + escala) mientras gira; el número se va actualizando cada 70ms con valores aleatorios para dar sensación de "ruleta", y se fija en el valor final al terminar (~1s).
 - Resultado: entero entre 1 y 20, uniforme.
 
+### Requirement: Modo rango (slot machine)
+
+- Visual: marco de slot machine con tantos rodillos verticales como dígitos tenga `slotMax` (1 a 5). Inputs `Mín` y `Máx` arriba (numéricos, 0-99999).
+- Animación: cada rodillo es un strip vertical de 100 dígitos (0-9 × 10) que se desplaza con `translateY` y termina mostrando el dígito correcto. ~1.5s. Tras asentarse, snap invisible que resetea spins (manteniendo bounded el offset).
+- Restricciones: si `Mín > Máx` se autocorrige al valor mayor; el botón "Tirar" se deshabilita si los inputs no son válidos.
+- Resultado: entero uniforme entre `Mín` y `Máx`, inclusive.
+
+### Requirement: Modo ruleta
+
+- Visual: rueda SVG circular con slices alternando dos tonos ámbar; etiquetas de texto en cada slice (truncadas a 10 chars + "…"); indicador triangular fijo arriba.
+- Lista de items: input + botón "+" para añadir; chips debajo con "×" para quitar. Mínimo 2 items para tirar, máximo 12.
+- Animación: rotación con 3 vueltas completas + ajuste a la slice ganadora bajo el indicador. Duración ~3.6s, easing `cubic-bezier(0.15, 0.45, 0.1, 1)` para deceleración natural.
+- Resultado: item ganador uniforme entre los items definidos. Se muestra debajo de la rueda al finalizar.
+
+### Requirement: Modo bola 8 mágica
+
+- Visual: esfera negra con highlight superior (radial gradient) y "8" clásico arriba. Ventana triangular central que muestra la respuesta.
+- Input opcional: campo de texto decorativo para escribir la pregunta (no afecta al resultado).
+- Animación: shake de la esfera ~1.5s; al terminar, la ventana triangular se ilumina con la respuesta en ámbar con glow.
+- Catálogo de respuestas: 14 frases clásicas adaptadas al castellano (positivas, neutras, negativas, mixtas).
+- Resultado: respuesta uniforme entre las 14 disponibles.
+
 ### Requirement: Historial
 
 Al menos las últimas 5 tiradas MUST mostrarse en una sección debajo del botón, etiquetadas con el modo y el resultado. El historial vive solo en memoria (no persiste entre recargas).
@@ -80,9 +99,6 @@ MUST tener manifest + service worker + iconos. Tras la primera carga funciona 10
 - Fondo: marrón muy oscuro tintado de ámbar (`#1a0f02`) con dos radiales sutiles.
 - Tipografía: Outfit (Google Fonts), igual que el resto de PWAs del catálogo.
 
-## Roadmap (post-MVP)
+## Accesibilidad
 
-Tres modos adicionales planificados para implementar en un segundo paso:
-- **Rango libre**: slot machine — usuario define min/max, animación de rodillo.
-- **Ruleta**: rueda giratoria con items definidos por el usuario.
-- **Bola 8 mágica**: sí/no/tal vez con animación de niebla.
+`prefers-reduced-motion: reduce` desactiva las animaciones de shake (d20, bola 8) y el reveal del 8, y acorta las transiciones de coin/d6/slot/wheel a 0.2s. La interactividad se mantiene completa.

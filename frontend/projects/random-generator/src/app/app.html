@@ -1,10 +1,10 @@
-<main class="min-h-screen flex items-start sm:items-center justify-center px-4 py-6">
+<main class="min-h-screen flex items-start justify-center px-4 py-6 sm:py-10">
   <div class="w-full max-w-md flex flex-col gap-5">
 
     <!-- Header -->
     <header class="text-center">
       <h1 class="text-2xl font-bold tracking-tight text-amber-300">Generador aleatorio</h1>
-      <p class="text-sm text-[var(--c-muted)] mt-1">Decide al azar con estilo. Moneda, dados, lo que necesites.</p>
+      <p class="text-sm text-[var(--c-muted)] mt-1">Decide al azar con estilo. Moneda, dados, ruleta y más.</p>
     </header>
 
     <!-- Mode selector -->
@@ -17,7 +17,8 @@
           [class.bg-amber-500]="mode() === m.id"
           [class.text-amber-950]="mode() === m.id"
           [class.font-bold]="mode() === m.id"
-          class="h-14 rounded-xl border border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] flex flex-col items-center justify-center gap-0.5 transition disabled:opacity-50 disabled:cursor-not-allowed hover:border-amber-400"
+          [class.border-amber-400]="mode() === m.id"
+          class="h-16 rounded-xl border border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] flex flex-col items-center justify-center gap-0.5 transition disabled:opacity-50 disabled:cursor-not-allowed hover:border-amber-400"
         >
           <span class="text-xl leading-none">{{ m.icon }}</span>
           <span class="text-xs">{{ m.label }}</span>
@@ -26,7 +27,7 @@
     </section>
 
     <!-- Stage -->
-    <section class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)]/80 backdrop-blur p-4">
+    <section class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)]/80 backdrop-blur p-4 flex flex-col gap-4">
       @switch (mode()) {
 
         @case ('coin') {
@@ -45,9 +46,9 @@
               [style.--cube-x]="d6Rotation().x"
               [style.--cube-y]="d6Rotation().y"
             >
-              @for (face of d6Dots(); track $index) {
+              @for (face of d6Dots; track $index) {
                 <div [class]="'cube-face f' + ($index + 1)">
-                  @for (cell of [1,2,3,4,5,6,7,8,9]; track cell) {
+                  @for (cell of cellRange; track cell) {
                     @if (face.includes(cell)) {
                       <span class="dot"></span>
                     } @else {
@@ -70,18 +71,10 @@
                     <stop offset="100%" stop-color="#d97706" />
                   </linearGradient>
                 </defs>
-                <polygon
-                  points="100,10 183,55 183,145 100,190 17,145 17,55"
-                  fill="url(#d20-grad)"
-                  stroke="rgba(255,255,255,0.25)"
-                  stroke-width="2"
-                />
-                <polygon
-                  points="100,55 145,80 145,130 100,145 55,130 55,80"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.18)"
-                  stroke-width="1.5"
-                />
+                <polygon points="100,10 183,55 183,145 100,190 17,145 17,55"
+                  fill="url(#d20-grad)" stroke="rgba(255,255,255,0.25)" stroke-width="2" />
+                <polygon points="100,55 145,80 145,130 100,145 55,130 55,80"
+                  fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
                 <line x1="100" y1="10"  x2="100" y2="55"  stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
                 <line x1="183" y1="55"  x2="145" y2="80"  stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
                 <line x1="183" y1="145" x2="145" y2="130" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
@@ -93,6 +86,142 @@
             </div>
           </div>
         }
+
+        @case ('slot') {
+          <div class="flex items-center justify-center gap-3 text-sm">
+            <label class="flex items-center gap-2">
+              <span class="text-[var(--c-muted)]">Mín</span>
+              <input
+                type="number"
+                inputmode="numeric"
+                [value]="slotMin()"
+                (change)="updateSlotMin(+$any($event.target).value)"
+                [disabled]="rolling()"
+                min="0"
+                class="w-20 h-10 rounded-lg bg-[var(--c-surface-2)] border border-[var(--c-border)] text-center font-mono text-base text-[var(--c-text)] focus:border-amber-400 focus:outline-none disabled:opacity-50"
+              />
+            </label>
+            <label class="flex items-center gap-2">
+              <span class="text-[var(--c-muted)]">Máx</span>
+              <input
+                type="number"
+                inputmode="numeric"
+                [value]="slotMax()"
+                (change)="updateSlotMax(+$any($event.target).value)"
+                [disabled]="rolling()"
+                min="0"
+                class="w-20 h-10 rounded-lg bg-[var(--c-surface-2)] border border-[var(--c-border)] text-center font-mono text-base text-[var(--c-text)] focus:border-amber-400 focus:outline-none disabled:opacity-50"
+              />
+            </label>
+          </div>
+          <div class="slot-stage">
+            <div class="slot-frame">
+              @for (digit of slotDigits(); track $index) {
+                <div class="reel">
+                  <div
+                    class="reel-strip"
+                    [class.no-transition]="slotSnap()"
+                    [style.--reel-offset]="(slotSpins() * 10 + digit) + ''"
+                  >
+                    @for (d of digitStrip; track $index) {
+                      <span>{{ d }}</span>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        @case ('wheel') {
+          <div class="flex gap-2">
+            <input
+              type="text"
+              [value]="wheelInput()"
+              (input)="wheelInput.set($any($event.target).value)"
+              (keydown.enter)="addWheelItem()"
+              [disabled]="rolling()"
+              placeholder="Añade una opción"
+              maxlength="24"
+              class="flex-1 h-10 rounded-lg bg-[var(--c-surface-2)] border border-[var(--c-border)] px-3 text-sm text-[var(--c-text)] placeholder:text-[var(--c-muted)] focus:border-amber-400 focus:outline-none disabled:opacity-50"
+            />
+            <button
+              type="button"
+              (click)="addWheelItem()"
+              [disabled]="rolling() || !wheelInput().trim() || wheelItems().length >= 12"
+              class="h-10 w-10 rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold text-xl disabled:opacity-40 transition"
+              aria-label="Añadir opción"
+            >+</button>
+          </div>
+          @if (wheelItems().length > 0) {
+            <ul class="flex flex-wrap gap-1.5">
+              @for (item of wheelItems(); track $index) {
+                <li class="text-xs px-2 py-1 rounded-md bg-[var(--c-surface-2)] border border-[var(--c-border)] flex items-center gap-1.5">
+                  <span>{{ item }}</span>
+                  <button
+                    type="button"
+                    (click)="removeWheelItem($index)"
+                    [disabled]="rolling()"
+                    class="text-[var(--c-muted)] hover:text-amber-300 transition disabled:opacity-30"
+                    aria-label="Quitar opción"
+                  >×</button>
+                </li>
+              }
+            </ul>
+          }
+          <div class="wheel-stage">
+            <div class="wheel-pointer" aria-hidden="true"></div>
+            <div class="wheel-disc" [style.--wheel-rot]="wheelRotation() + 'deg'">
+              <svg viewBox="0 0 220 220" aria-hidden="true">
+                @for (s of wheelSlices(); track s.index) {
+                  <path [attr.d]="s.path" [attr.fill]="s.color" stroke="rgba(0,0,0,0.25)" stroke-width="1" />
+                  <text
+                    [attr.x]="s.labelX"
+                    [attr.y]="s.labelY"
+                    [attr.transform]="'rotate(' + s.labelRotation + ' ' + s.labelX + ' ' + s.labelY + ')'"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    fill="#2a1c08"
+                    font-weight="700"
+                    font-size="12"
+                  >{{ s.label.length > 10 ? (s.label.slice(0, 9) + '…') : s.label }}</text>
+                }
+                <circle cx="110" cy="110" r="14" fill="#2a1c08" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              </svg>
+            </div>
+          </div>
+          @if (wheelWinner() && !rolling()) {
+            <div class="text-center text-sm text-amber-300 font-semibold">
+              ↑ {{ wheelWinner() }}
+            </div>
+          }
+          @if (wheelItems().length < 2) {
+            <p class="text-xs text-center text-[var(--c-muted)]">Añade al menos 2 opciones para girar.</p>
+          }
+        }
+
+        @case ('magic8') {
+          <input
+            type="text"
+            [value]="magic8Question()"
+            (input)="magic8Question.set($any($event.target).value)"
+            [disabled]="rolling()"
+            placeholder="Haz una pregunta de sí o no…"
+            maxlength="80"
+            class="h-10 rounded-lg bg-[var(--c-surface-2)] border border-[var(--c-border)] px-3 text-sm text-[var(--c-text)] placeholder:text-[var(--c-muted)] focus:border-amber-400 focus:outline-none disabled:opacity-50"
+          />
+          <div class="magic8-stage">
+            <div class="magic8" [class.shaking]="magic8Shaking()">
+              <div class="magic8-eight">8</div>
+              <div class="magic8-window" [class.revealed]="magic8Answer() && !magic8Shaking()">
+                <span class="magic8-answer">{{ magic8Answer() ?? '?' }}</span>
+              </div>
+            </div>
+          </div>
+          @if (!magic8Question().trim()) {
+            <p class="text-xs text-center text-[var(--c-muted)]">Escribe una pregunta para tirar.</p>
+          }
+        }
       }
     </section>
 
@@ -100,7 +229,7 @@
     <button
       type="button"
       (click)="roll()"
-      [disabled]="rolling()"
+      [disabled]="!canRoll()"
       class="h-14 rounded-xl font-bold text-lg bg-amber-500 hover:bg-amber-400 active:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed text-amber-950 transition shadow-lg shadow-amber-500/30"
     >
       {{ rolling() ? 'Girando…' : 'Tirar' }}
