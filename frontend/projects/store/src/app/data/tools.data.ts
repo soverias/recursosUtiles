@@ -55,4 +55,13 @@ export const TOOLS: Tool[] = [
     url: '/random-generator/',
     color: '#f59e0b',
   },
+  {
+    id: 'counter',
+    name: 'Contador',
+    description: 'Cuenta cosas del mundo físico: asistentes, ejercicios, inventario. Múltiples contadores, persistencia local.',
+    category: 'utilities',
+    icon: '🔢',
+    url: '/counter/',
+    color: '#10b981',
+  },
 ];

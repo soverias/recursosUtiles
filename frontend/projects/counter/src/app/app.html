@@ -1,0 +1,184 @@
+<main class="min-h-screen flex items-start justify-center px-4 py-6 sm:py-10">
+  <div class="w-full max-w-md flex flex-col gap-5">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between gap-3">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-emerald-300">Contador</h1>
+        <p class="text-sm text-[var(--c-muted)] mt-0.5">Cuenta lo que sea, sin perder la cuenta.</p>
+      </div>
+      <button
+        type="button"
+        (click)="openAddForm()"
+        [disabled]="addFormOpen()"
+        class="h-11 w-11 rounded-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 text-2xl font-bold flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-emerald-500/30 transition"
+        aria-label="Añadir contador"
+      >+</button>
+    </header>
+
+    <!-- Add form -->
+    @if (addFormOpen()) {
+      <section class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)] p-4 flex flex-col gap-3 card-enter">
+        <h2 class="text-sm font-semibold text-emerald-300">Nuevo contador</h2>
+        <input
+          type="text"
+          [value]="newName()"
+          (input)="newName.set($any($event.target).value); newNameError.set(null)"
+          (keydown.enter)="submitAdd()"
+          (keydown.escape)="closeAddForm()"
+          placeholder="Nombre (ej. Asistentes)"
+          maxlength="32"
+          autofocus
+          class="h-11 rounded-lg bg-[var(--c-surface-2)] border border-[var(--c-border)] px-3 text-base text-[var(--c-text)] placeholder:text-[var(--c-muted)]/60 focus:border-emerald-400 focus:outline-none"
+        />
+        @if (newNameError()) {
+          <p class="text-xs text-rose-300">{{ newNameError() }}</p>
+        }
+        <label class="flex items-center justify-between text-sm">
+          <span class="text-[var(--c-muted)]">Salto inicial</span>
+          <div class="flex items-center gap-2">
+            @for (s of [1, 5, 10]; track s) {
+              <button
+                type="button"
+                (click)="newStep.set(s)"
+                [class.bg-emerald-500]="newStep() === s"
+                [class.text-emerald-950]="newStep() === s"
+                [class.font-bold]="newStep() === s"
+                [class.border-emerald-400]="newStep() === s"
+                class="min-w-[44px] h-9 px-3 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] text-[var(--c-text)] text-sm transition"
+              >{{ s }}</button>
+            }
+          </div>
+        </label>
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button
+            type="button"
+            (click)="closeAddForm()"
+            class="h-11 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] text-[var(--c-text)] text-sm font-medium hover:border-[var(--c-muted)]/40 transition"
+          >Cancelar</button>
+          <button
+            type="button"
+            (click)="submitAdd()"
+            class="h-11 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-emerald-950 text-sm font-bold transition shadow-lg shadow-emerald-500/30"
+          >Crear</button>
+        </div>
+      </section>
+    }
+
+    <!-- Empty state -->
+    @if (isEmpty() && !addFormOpen()) {
+      <section class="rounded-2xl border border-dashed border-[var(--c-border)] bg-[var(--c-surface)]/40 p-8 text-center flex flex-col gap-3 items-center">
+        <div class="w-16 h-16 rounded-2xl bg-[var(--c-surface-2)] border border-[var(--c-border)] grid place-items-center text-3xl text-[var(--c-muted)]">𝍪</div>
+        <p class="text-sm text-[var(--c-muted)]">Aún no tienes contadores</p>
+        <button
+          type="button"
+          (click)="openAddForm()"
+          class="mt-1 h-11 px-5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-emerald-950 text-sm font-bold transition shadow-lg shadow-emerald-500/30"
+        >Crear primer contador</button>
+      </section>
+    }
+
+    <!-- Counter cards -->
+    @for (c of counters(); track c.id) {
+      <article class="counter-card p-4 flex flex-col gap-4 card-enter">
+
+        <!-- Top row: name + menu -->
+        <div class="flex items-center justify-between gap-2">
+          @if (editingId() === c.id) {
+            <input
+              type="text"
+              [value]="editingValue()"
+              (input)="editingValue.set($any($event.target).value)"
+              (keydown.enter)="commitRename(c)"
+              (keydown.escape)="cancelRename()"
+              (blur)="commitRename(c)"
+              maxlength="32"
+              autofocus
+              class="flex-1 h-9 rounded-md bg-[var(--c-surface-2)] border border-emerald-400 px-2 text-sm text-[var(--c-text)] focus:outline-none"
+            />
+          } @else {
+            <button
+              type="button"
+              (click)="startRename(c)"
+              class="flex-1 text-left text-sm font-semibold text-[var(--c-text)] truncate hover:text-emerald-300 transition"
+            >{{ c.name }}</button>
+          }
+          <button
+            type="button"
+            (click)="toggleMenu(c)"
+            class="h-9 w-9 rounded-md text-[var(--c-muted)] hover:bg-[var(--c-surface-2)] hover:text-[var(--c-text)] transition text-xl leading-none flex items-center justify-center"
+            aria-label="Menú del contador"
+          >⋮</button>
+        </div>
+
+        <!-- Menu -->
+        @if (menuOpenFor() === c.id) {
+          @if (confirmingDeleteFor() === c.id) {
+            <div class="flex items-center gap-2 text-xs">
+              <span class="flex-1 text-rose-200">¿Eliminar "{{ c.name }}"?</span>
+              <button
+                type="button"
+                (click)="cancelDelete()"
+                class="h-8 px-3 rounded-md border border-[var(--c-border)] text-[var(--c-text)]"
+              >No</button>
+              <button
+                type="button"
+                (click)="confirmDelete(c)"
+                class="h-8 px-3 rounded-md bg-rose-500 text-rose-950 font-semibold"
+              >Sí, eliminar</button>
+            </div>
+          } @else {
+            <div class="flex items-center gap-2 text-xs">
+              <button
+                type="button"
+                (click)="reset(c)"
+                class="flex-1 h-8 rounded-md border border-[var(--c-border)] bg-[var(--c-surface-2)] text-[var(--c-text)] hover:border-[var(--c-muted)]/40 transition"
+              >Reset a 0</button>
+              <button
+                type="button"
+                (click)="askDelete(c)"
+                class="flex-1 h-8 rounded-md border border-rose-500/40 text-rose-300 hover:bg-rose-500/10 transition"
+              >Eliminar</button>
+            </div>
+          }
+        }
+
+        <!-- Display -->
+        <div class="display-window flex items-center justify-center">
+          <span
+            class="digital text-6xl"
+            [class.punch]="punchedId() === c.id"
+          >{{ c.value }}</span>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center justify-between gap-3">
+          <button
+            type="button"
+            (click)="decrement(c)"
+            class="btn-tactile"
+            aria-label="Restar"
+          >−</button>
+
+          <button
+            type="button"
+            (click)="cycleStep(c)"
+            class="step-chip"
+            [attr.aria-label]="'Cambiar salto, actual ' + c.step"
+          >× {{ c.step }}</button>
+
+          <button
+            type="button"
+            (click)="increment(c)"
+            class="btn-tactile"
+            aria-label="Sumar"
+          >+</button>
+        </div>
+      </article>
+    }
+
+    <footer class="text-center text-xs text-[var(--c-muted)] py-2">
+      100% local. Tus contadores nunca salen del dispositivo.
+    </footer>
+  </div>
+</main>

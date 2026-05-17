@@ -1,0 +1,163 @@
+@import "tailwindcss";
+@source "../../shared/src";
+
+:root {
+  --c-bg:        #020e0a;
+  --c-surface:   #0d1f1a;
+  --c-surface-2: #040a08;
+  --c-border:    #1f4d3e;
+  --c-text:      #d1fae5;
+  --c-muted:     #6ee7b7;
+  --c-accent:    #10b981;
+  --c-accent-2:  #34d399;
+}
+
+html, body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Outfit', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, rgba(16, 185, 129, 0.10), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(52, 211, 153, 0.05), transparent 60%),
+    var(--c-bg);
+  background-attachment: fixed;
+}
+
+/* ─── Digital display ──────────────────────────────────────────────────── */
+.digital {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--c-accent-2);
+  text-shadow:
+    0 0 8px rgba(52, 211, 153, 0.45),
+    0 0 24px rgba(52, 211, 153, 0.18);
+  letter-spacing: 0.02em;
+}
+
+/* ─── Card ─────────────────────────────────────────────────────────────── */
+.counter-card {
+  background: linear-gradient(180deg, #102923 0%, #0a1b16 100%);
+  border: 1px solid var(--c-border);
+  border-radius: 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(110, 231, 183, 0.10),
+    0 8px 22px rgba(0, 0, 0, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.counter-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14%;
+  right: 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(110, 231, 183, 0.35), transparent);
+  pointer-events: none;
+}
+
+/* Display backdrop (the LCD-style window) */
+.display-window {
+  background: var(--c-surface-2);
+  border: 1px solid #0a1f17;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(52, 211, 153, 0.06);
+  padding: 16px 8px;
+}
+
+/* ─── Tactile buttons ──────────────────────────────────────────────────── */
+.btn-tactile {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 28%, #34d399, #047857 80%);
+  color: #02160f;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    inset 0 -3px 6px rgba(0, 0, 0, 0.35),
+    inset 0 2px 3px rgba(255, 255, 255, 0.4),
+    0 6px 14px rgba(16, 185, 129, 0.35);
+  transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-tactile:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 -1px 3px rgba(0, 0, 0, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25),
+    0 2px 6px rgba(16, 185, 129, 0.30);
+}
+
+.btn-tactile:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Step chip (between +/− buttons) */
+.step-chip {
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--c-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.step-chip:hover {
+  border-color: var(--c-accent);
+  color: var(--c-text);
+}
+
+/* ─── Tap punch on value ───────────────────────────────────────────────── */
+.punch {
+  animation: punch 180ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes punch {
+  0%   { transform: scale(1);    }
+  35%  { transform: scale(1.10); }
+  100% { transform: scale(1);    }
+}
+
+/* ─── Card entrance ────────────────────────────────────────────────────── */
+.card-enter {
+  animation: card-enter 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .punch,
+  .card-enter {
+    animation: none;
+  }
+  .btn-tactile {
+    transition: none;
+  }
+}
