@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tile -->
+  <rect width="512" height="512" rx="113" ry="113" fill="#0ea5e9"/>
+  <!-- Subtle top highlight -->
+  <rect width="512" height="256" rx="113" ry="113" fill="#ffffff" opacity="0.07"/>
+
+  <!-- 3 finder patterns (the corner squares of a QR code) -->
+  <g>
+    <!-- Top-left -->
+    <rect x="116" y="116" width="120" height="120" fill="#ffffff"/>
+    <rect x="136" y="136" width="80"  height="80"  fill="#0ea5e9"/>
+    <rect x="160" y="160" width="32"  height="32"  fill="#ffffff"/>
+
+    <!-- Top-right -->
+    <rect x="276" y="116" width="120" height="120" fill="#ffffff"/>
+    <rect x="296" y="136" width="80"  height="80"  fill="#0ea5e9"/>
+    <rect x="320" y="160" width="32"  height="32"  fill="#ffffff"/>
+
+    <!-- Bottom-left -->
+    <rect x="116" y="276" width="120" height="120" fill="#ffffff"/>
+    <rect x="136" y="296" width="80"  height="80"  fill="#0ea5e9"/>
+    <rect x="160" y="320" width="32"  height="32"  fill="#ffffff"/>
+  </g>
+</svg>

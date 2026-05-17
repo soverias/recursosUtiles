@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tile -->
+  <rect width="512" height="512" rx="113" ry="113" fill="#f59e0b"/>
+  <!-- Subtle top highlight (constant across the family) -->
+  <rect width="512" height="256" rx="113" ry="113" fill="#ffffff" opacity="0.07"/>
+
+  <!-- Isometric dice — centered at (256,256), edge = 140 -->
+  <!-- Left face (deepest shadow) -->
+  <path d="M 135 186 L 256 256 L 256 396 L 135 326 Z" fill="#d6cba8"/>
+  <!-- Right face (mid shadow) -->
+  <path d="M 377 186 L 377 326 L 256 396 L 256 256 Z" fill="#f1ead8"/>
+  <!-- Top face (lit) -->
+  <path d="M 256 116 L 377 186 L 256 256 L 135 186 Z" fill="#ffffff"/>
+
+  <!-- Pip on top face: "1" — flattened ellipse projected onto the rhombus -->
+  <ellipse cx="256" cy="186" rx="32" ry="18" fill="#2a1c08"/>
+</svg>

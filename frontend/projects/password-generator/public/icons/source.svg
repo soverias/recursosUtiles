@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tile -->
+  <rect width="512" height="512" rx="113" ry="113" fill="#8b5cf6"/>
+  <!-- Subtle top highlight -->
+  <rect width="512" height="256" rx="113" ry="113" fill="#ffffff" opacity="0.07"/>
+
+  <!-- Padlock: shackle (arc, stroke) + body (rounded rect) -->
+  <!-- Shackle: U-shape, top at y≈136, base entering body at y≈236 -->
+  <path d="M 196 246 L 196 196 A 60 60 0 0 1 316 196 L 316 246"
+        stroke="#ffffff" stroke-width="30" stroke-linecap="round" fill="none"/>
+  <!-- Body -->
+  <rect x="156" y="226" width="200" height="160" rx="24" fill="#ffffff"/>
+  <!-- Keyhole (small dot — disappears at 72 but adds character at large sizes) -->
+  <circle cx="256" cy="296" r="14" fill="#8b5cf6"/>
+  <rect x="248" y="302" width="16" height="36" rx="6" fill="#8b5cf6"/>
+</svg>

@@ -1,9 +1,7 @@
 ---
-status: partial
-last_change: random-generator
+status: implemented
+last_change: icon-system
 last_verified: 2026-05-17
-pending: |
-  - Iconos PWA propios (actualmente placeholder copiados de qr-generator)
 ---
 
 # Spec: random-generator

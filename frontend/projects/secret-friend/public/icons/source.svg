@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tile -->
+  <rect width="512" height="512" rx="113" ry="113" fill="#6366f1"/>
+  <!-- Subtle top highlight -->
+  <rect width="512" height="256" rx="113" ry="113" fill="#ffffff" opacity="0.07"/>
+
+  <!-- Gift box: white body + tile-colored ribbon (cross + bow) -->
+  <!-- Box body -->
+  <rect x="136" y="226" width="240" height="180" rx="16" fill="#ffffff"/>
+  <!-- Ribbon vertical -->
+  <rect x="241" y="226" width="30"  height="180" fill="#6366f1"/>
+  <!-- Ribbon horizontal -->
+  <rect x="136" y="306" width="240" height="30"  fill="#6366f1"/>
+  <!-- Bow: two angled loops + center knot -->
+  <ellipse cx="216" cy="200" rx="42" ry="26" fill="#ffffff" transform="rotate(-25 216 200)"/>
+  <ellipse cx="296" cy="200" rx="42" ry="26" fill="#ffffff" transform="rotate(25 296 200)"/>
+  <circle  cx="256" cy="216" r="18" fill="#ffffff"/>
+</svg>
