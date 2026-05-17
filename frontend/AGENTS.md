@@ -58,6 +58,10 @@ No implementes nada sin que exista un spec previo salvo instrucción explícita 
 - No refactorizar código ajeno a la tarea en curso
 - No añadir comentarios salvo que la lógica no sea evidente
 
+### Iconos PWA
+- Toda app del catálogo comparte un lenguaje visual unificado (squircle, tile full-bleed con el color de marca de la app, glifo blanco, highlight superior constante)
+- Antes de crear o modificar el icono de una app, lee `docs/icon-system.md` — contiene la plantilla del SVG maestro, el pipeline (`npm run icons`) y las reglas de diseño
+
 ## Convenciones de Git
 
 - Ramas por feature: `feature/nombre-feature`
