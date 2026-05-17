@@ -5,7 +5,7 @@ import { of, throwError } from 'rxjs';
 import { LobbyPage } from './lobby.page';
 import { GameHubService } from '../../core/services/game-hub.service';
 import { GameStateService } from '../game/game-state.service';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '@shared/auth';
 import { BotSessionService } from '../../core/services/bot-session.service';
 import { MatchmakingTimeoutService } from '../../core/services/matchmaking-timeout.service';
 import { RoomInfo } from '../../core/models/room.model';

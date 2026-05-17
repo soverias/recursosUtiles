@@ -4,7 +4,7 @@ import { signal } from '@angular/core';
 import { GamePage } from './game.page';
 import { GameStateService } from './game-state.service';
 import { GameHubService } from '../../core/services/game-hub.service';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '@shared/auth';
 import { ToastService } from '@shared/ui';
 import { BotSessionService } from '../../core/services/bot-session.service';
 import { BotGameService } from '../../core/services/bot-game.service';

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { canActivateIdentity } from './core/guards/identity.guard';
+import { canActivateIdentity } from '@shared/auth';
 import { canActivateInRoom } from './core/guards/in-room.guard';
 
 export const routes: Routes = [

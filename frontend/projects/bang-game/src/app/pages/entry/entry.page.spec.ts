@@ -3,7 +3,7 @@ import { provideRouter, Router } from '@angular/router';
 import { signal } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { EntryPage } from './entry.page';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '@shared/auth';
 
 const makeAuthStub = () => ({
   currentUser: signal({ kind: 'anonymous' } as const),

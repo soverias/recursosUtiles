@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit
 import { Router } from '@angular/router';
 import { GameHubService } from '../../core/services/game-hub.service';
 import { GameStateService } from '../game/game-state.service';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '@shared/auth';
 import { RoomInfo } from '../../core/models/room.model';
 import { BotSessionService } from '../../core/services/bot-session.service';
 import { MatchmakingTimeoutService } from '../../core/services/matchmaking-timeout.service';
