@@ -1,4 +1,4 @@
-namespace BangGame.Infrastructure.Options;
+namespace RecursosUtiles.Auth.Infrastructure.Options;
 
 public sealed class JwtOptions
 {

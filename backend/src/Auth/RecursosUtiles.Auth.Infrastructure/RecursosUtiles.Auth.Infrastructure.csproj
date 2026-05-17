@@ -5,6 +5,15 @@
     <ProjectReference Include="..\..\RecursosUtiles.SharedKernel\RecursosUtiles.SharedKernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt"                   Version="8.9.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens"                    Version="8.9.0" />
+    <PackageReference Include="Npgsql"                                            Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Options"                      Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"   Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

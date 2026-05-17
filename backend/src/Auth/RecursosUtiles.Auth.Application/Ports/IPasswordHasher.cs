@@ -1,4 +1,4 @@
-namespace BangGame.Application.Ports;
+namespace RecursosUtiles.Auth.Application.Ports;
 
 public interface IPasswordHasher
 {

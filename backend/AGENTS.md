@@ -37,6 +37,13 @@ Infraestructura base de la solución: estructura de proyectos, SharedKernel, con
 - [Spec](server-scaffold.spec.md)
 - [Design](server-scaffold.design.md)
 
+### auth
+Identidad de usuario centralizada. Módulo propietario de `User`, `IUserRepository`, `IJwtService`, `IPasswordHasher`, `RegisterUserUseCase`, `LoginUserUseCase`, `JwtOptions`.
+
+- **Regla de aislamiento**: ningún bounded context (BangGame, Reminders, futuros) puede referenciar `RecursosUtiles.Auth.Domain` ni `RecursosUtiles.Auth.Application`. Los contextos que necesiten identidad la consumen vía el claim `ClaimTypes.NameIdentifier` del JWT. Si necesitan datos del usuario (p.ej. username para mostrar en UI), definen su propio puerto de lectura local — nunca importan `User`.
+- `DbConnectionFactory` de Auth es independiente de la de BangGame y Reminders — cada módulo tiene la suya en su propio namespace.
+- Spec local: `backend/Auth.spec.md`
+
 ### bang-game
 Juego de reflejos multijugador en tiempo real. Backend árbitro absoluto via SignalR.
 

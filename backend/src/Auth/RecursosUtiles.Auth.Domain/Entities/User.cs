@@ -1,6 +1,6 @@
 using RecursosUtiles.SharedKernel;
 
-namespace BangGame.Domain.Entities;
+namespace RecursosUtiles.Auth.Domain.Entities;
 
 public sealed class User : Entity<Guid>
 {

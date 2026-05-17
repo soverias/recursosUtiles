@@ -1,10 +1,10 @@
-using BangGame.Application.DTOs;
-using BangGame.Application.Ports;
-using BangGame.Domain.Entities;
-using BangGame.Domain.Ports;
+using RecursosUtiles.Auth.Application.DTOs;
+using RecursosUtiles.Auth.Application.Ports;
+using RecursosUtiles.Auth.Domain.Entities;
+using RecursosUtiles.Auth.Domain.Ports;
 using RecursosUtiles.SharedKernel;
 
-namespace BangGame.Application.UseCases;
+namespace RecursosUtiles.Auth.Application.UseCases;
 
 public sealed class RegisterUserUseCase(
     IUserRepository users,

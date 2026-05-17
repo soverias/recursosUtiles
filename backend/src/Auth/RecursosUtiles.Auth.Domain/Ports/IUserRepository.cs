@@ -1,6 +1,6 @@
-using BangGame.Domain.Entities;
+using RecursosUtiles.Auth.Domain.Entities;
 
-namespace BangGame.Domain.Ports;
+namespace RecursosUtiles.Auth.Domain.Ports;
 
 public interface IUserRepository
 {

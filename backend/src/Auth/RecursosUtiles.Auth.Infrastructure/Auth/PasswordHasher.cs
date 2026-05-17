@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
-using BangGame.Application.Ports;
+using RecursosUtiles.Auth.Application.Ports;
 
-namespace BangGame.Infrastructure.Auth;
+namespace RecursosUtiles.Auth.Infrastructure.Auth;
 
 /// <summary>PBKDF2-SHA256 password hasher. No external dependencies.</summary>
 public sealed class PasswordHasher : IPasswordHasher

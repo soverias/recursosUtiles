@@ -1,8 +1,8 @@
-using BangGame.Domain.Entities;
-using BangGame.Domain.Ports;
+using RecursosUtiles.Auth.Domain.Entities;
+using RecursosUtiles.Auth.Domain.Ports;
 using Npgsql;
 
-namespace BangGame.Infrastructure.Persistence;
+namespace RecursosUtiles.Auth.Infrastructure.Persistence;
 
 public sealed class UserRepository(DbConnectionFactory factory) : IUserRepository
 {

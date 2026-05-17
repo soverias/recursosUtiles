@@ -1,9 +1,10 @@
 using System.Text;
 using BangGame.Infrastructure.Extensions;
-using BangGame.Infrastructure.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using RecursosUtiles.Api.Hubs;
+using RecursosUtiles.Auth.Infrastructure.Extensions;
+using RecursosUtiles.Auth.Infrastructure.Options;
 using Reminders.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -73,6 +74,9 @@ builder.Services
 
 // ── Controllers ───────────────────────────────────────────────────────────────
 builder.Services.AddControllers();
+
+// ── Auth (identity — shared across all bounded contexts) ──────────────────────
+builder.Services.AddAuth(builder.Configuration);
 
 // ── Bang Game (domain + application + infrastructure) ─────────────────────────
 builder.Services.AddBangGame(builder.Configuration);

@@ -1,13 +1,13 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using BangGame.Application.Ports;
-using BangGame.Domain.Entities;
-using BangGame.Infrastructure.Options;
+using RecursosUtiles.Auth.Application.Ports;
+using RecursosUtiles.Auth.Domain.Entities;
+using RecursosUtiles.Auth.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BangGame.Infrastructure.Auth;
+namespace RecursosUtiles.Auth.Infrastructure.Auth;
 
 public sealed class JwtService(IOptions<JwtOptions> options) : IJwtService
 {

@@ -3,8 +3,8 @@ status: partial
 coverage:
   backend: implemented
   frontend: implemented
-last_change: cross-cutting-spec-extraction
-last_verified: 2026-05-16
+last_change: unified-auth
+last_verified: 2026-05-17
 pending: |
   - Aún no existe spec cross-cutting para `bot-opponent` (juego contra bot local) — solo vive en frontend
   - Aún no existe spec cross-cutting para `rematch-notification` — solo vive en frontend

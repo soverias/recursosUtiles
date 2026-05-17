@@ -1,8 +1,8 @@
-using BangGame.Application.DTOs;
-using BangGame.Application.UseCases;
+using RecursosUtiles.Auth.Application.DTOs;
+using RecursosUtiles.Auth.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RecursosUtiles.Api.Controllers.BangGame;
+namespace RecursosUtiles.Api.Controllers.Auth;
 
 [ApiController]
 [Route("auth")]

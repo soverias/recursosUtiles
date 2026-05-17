@@ -1,9 +1,10 @@
 ---
-status: implemented
-last_change: cross-cutting-spec-extraction
-last_verified: 2026-05-16
+status: partial
+last_change: unified-auth
+last_verified: 2026-05-17
 pending: |
-  - Ninguno
+  - Migrar auth-api fuera de BangGame al módulo Auth (change: unified-auth)
+  - Añadir IBangGamePlayerReader para ranking una vez el User aggregate deje de vivir aquí
 ---
 
 # Specification: bang-game (server, local)
@@ -12,6 +13,17 @@ Comportamiento observable del servidor. Cada escenario describe qué hace el ser
 ante una entrada dada — no cómo lo implementa.
 
 > **Contrato cross-cutting**: el contrato compartido con el frontend (forma de los payloads, nombres de eventos, máquina de estados, reglas de arbitraje y temporización) vive en `specs/bang-game.spec.md` en la raíz del monorepo. Este spec añade los escenarios BDD de cada caso del servidor; el contrato es la fuente de verdad si hay divergencia.
+
+---
+
+## §drift — unified-auth
+
+El bounded context BangGame actualmente **posee** el código de autenticación (`User`, `IUserRepository`, `JwtService`, `PasswordHasher`, `RegisterUserUseCase`, `LoginUserUseCase`, `AuthController`). Esto es drift arquitectónico: auth es una responsabilidad cross-cutting que no pertenece a BangGame.
+
+**Cambio en curso** (`unified-auth`):
+- `auth-api` se mueve al módulo `Auth` — los escenarios de registro/login descritos en `## auth-api` serán satisfechos por `Auth.Application` + `Auth.Infrastructure`, no por BangGame.
+- BangGame define su propio puerto `IBangGamePlayerReader { Task<string?> GetUsernameAsync(Guid id, CancellationToken ct) }` para que `GetRankingUseCase` pueda seguir devolviendo `username` sin referenciar `Auth.Domain`.
+- `## auth-api` permanece en este spec como referencia histórica hasta que `sdd-archive` lo elimine al cerrar el cambio.
 
 ---
 
