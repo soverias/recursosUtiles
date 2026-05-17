@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Tile -->
+  <rect width="512" height="512" rx="113" ry="113" fill="#f43f5e"/>
+  <!-- Subtle top highlight (constant across the family) -->
+  <rect width="512" height="256" rx="113" ry="113" fill="#ffffff" opacity="0.07"/>
+
+  <!-- Flame: outer body -->
+  <path d="
+    M 256 96
+    C 320 174, 360 224, 350 304
+    C 350 380, 304 412, 256 412
+    C 208 412, 162 380, 162 304
+    C 152 224, 192 174, 256 96 Z
+  " fill="#ffffff"/>
+
+  <!-- Flame: inner core (warmer tint, gives depth) -->
+  <path d="
+    M 256 220
+    C 286 264, 298 300, 290 332
+    C 290 366, 273 384, 256 384
+    C 239 384, 222 366, 222 332
+    C 214 300, 226 264, 256 220 Z
+  " fill="#fecdd3" opacity="0.65"/>
+</svg>

@@ -1,0 +1,200 @@
+<main class="min-h-screen flex items-start justify-center px-4 py-6 sm:py-10">
+  <div class="w-full max-w-md flex flex-col gap-5">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between gap-3">
+      <div>
+        <h1 class="serif text-3xl font-bold tracking-tight text-rose-200" style="font-variation-settings: 'opsz' 144;">Hábitos</h1>
+        <p class="text-sm text-[var(--c-muted)] mt-0.5">Una marca al día, una racha que crece.</p>
+      </div>
+      <button
+        type="button"
+        (click)="openAddForm()"
+        [disabled]="addFormOpen()"
+        class="h-11 w-11 rounded-full bg-rose-500 hover:bg-rose-400 text-rose-950 text-2xl font-bold flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-rose-500/30 transition"
+        aria-label="Añadir hábito"
+      >+</button>
+    </header>
+
+    <!-- Add form -->
+    @if (addFormOpen()) {
+      <section class="rounded-2xl border border-[var(--c-border)] bg-[var(--c-surface)] p-4 flex flex-col gap-3 card-enter">
+        <h2 class="serif text-base font-semibold text-rose-200">Nuevo hábito</h2>
+        <input
+          type="text"
+          [value]="newName()"
+          (input)="newName.set($any($event.target).value); newNameError.set(null)"
+          (keydown.enter)="submitAdd()"
+          (keydown.escape)="closeAddForm()"
+          placeholder="Nombre (ej. Beber 2L de agua)"
+          maxlength="40"
+          autofocus
+          class="h-11 rounded-lg bg-[var(--c-surface-2)] border border-[var(--c-border)] px-3 text-base text-[var(--c-text)] placeholder:text-[var(--c-muted)]/50 focus:border-rose-400 focus:outline-none"
+        />
+        @if (newNameError()) {
+          <p class="text-xs text-rose-200">{{ newNameError() }}</p>
+        }
+        <div class="flex flex-col gap-1.5">
+          <span class="text-xs uppercase tracking-wider text-[var(--c-muted)]">Icono</span>
+          <div class="grid grid-cols-6 gap-1.5">
+            @for (e of emojiPicker; track e) {
+              <button
+                type="button"
+                (click)="newEmoji.set(e)"
+                [class.bg-rose-500]="newEmoji() === e"
+                [class.border-rose-300]="newEmoji() === e"
+                class="h-10 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] text-xl transition"
+              >{{ e }}</button>
+            }
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button
+            type="button"
+            (click)="closeAddForm()"
+            class="h-11 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] text-[var(--c-text)] text-sm font-medium hover:border-[var(--c-muted)]/40 transition"
+          >Cancelar</button>
+          <button
+            type="button"
+            (click)="submitAdd()"
+            class="h-11 rounded-lg bg-rose-500 hover:bg-rose-400 text-rose-950 text-sm font-bold transition shadow-lg shadow-rose-500/30"
+          >Crear</button>
+        </div>
+      </section>
+    }
+
+    <!-- Empty state -->
+    @if (isEmpty() && !addFormOpen()) {
+      <section class="rounded-2xl border border-dashed border-[var(--c-border)] bg-[var(--c-surface)]/40 p-8 text-center flex flex-col gap-3 items-center">
+        <div class="text-5xl">🔥</div>
+        <p class="text-sm text-[var(--c-muted)]">Aún no hay hábitos que cultivar</p>
+        <button
+          type="button"
+          (click)="openAddForm()"
+          class="mt-1 h-11 px-5 rounded-lg bg-rose-500 hover:bg-rose-400 text-rose-950 text-sm font-bold transition shadow-lg shadow-rose-500/30"
+        >Crear primer hábito</button>
+      </section>
+    }
+
+    <!-- Habit cards -->
+    @for (h of habits(); track h.id) {
+      <article class="habit-card p-4 flex flex-col gap-4 card-enter">
+
+        <!-- Top row: emoji + name + menu -->
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            (click)="toggleEmojiPicker(h)"
+            class="h-9 w-9 rounded-lg bg-[var(--c-surface-2)] border border-[var(--c-border)] text-xl flex items-center justify-center hover:border-rose-400/50 transition"
+            aria-label="Cambiar icono"
+          >{{ h.emoji }}</button>
+
+          @if (editingId() === h.id) {
+            <input
+              type="text"
+              [value]="editingValue()"
+              (input)="editingValue.set($any($event.target).value)"
+              (keydown.enter)="commitRename(h)"
+              (keydown.escape)="cancelRename()"
+              (blur)="commitRename(h)"
+              maxlength="40"
+              autofocus
+              class="flex-1 h-9 rounded-md bg-[var(--c-surface-2)] border border-rose-400 px-2 text-sm text-[var(--c-text)] focus:outline-none"
+            />
+          } @else {
+            <button
+              type="button"
+              (click)="startRename(h)"
+              class="flex-1 text-left text-sm font-semibold text-[var(--c-text)] truncate hover:text-rose-200 transition"
+            >{{ h.name }}</button>
+          }
+
+          <button
+            type="button"
+            (click)="toggleMenu(h)"
+            class="h-9 w-9 rounded-md text-[var(--c-muted)] hover:bg-[var(--c-surface-2)] hover:text-[var(--c-text)] transition text-xl leading-none flex items-center justify-center"
+            aria-label="Menú del hábito"
+          >⋮</button>
+        </div>
+
+        <!-- Emoji picker -->
+        @if (emojiPickerFor() === h.id) {
+          <div class="grid grid-cols-6 gap-1.5">
+            @for (e of emojiPicker; track e) {
+              <button
+                type="button"
+                (click)="pickEmoji(h, e)"
+                [class.bg-rose-500]="h.emoji === e"
+                class="h-10 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface-2)] text-xl hover:border-rose-400/40 transition"
+              >{{ e }}</button>
+            }
+          </div>
+        }
+
+        <!-- Menu -->
+        @if (menuOpenFor() === h.id) {
+          @if (confirmingDeleteFor() === h.id) {
+            <div class="flex items-center gap-2 text-xs">
+              <span class="flex-1 text-rose-200">¿Eliminar "{{ h.name }}"? Se pierden las marcas.</span>
+              <button
+                type="button"
+                (click)="cancelDelete()"
+                class="h-8 px-3 rounded-md border border-[var(--c-border)] text-[var(--c-text)]"
+              >No</button>
+              <button
+                type="button"
+                (click)="confirmDelete(h)"
+                class="h-8 px-3 rounded-md bg-rose-500 text-rose-950 font-semibold"
+              >Sí</button>
+            </div>
+          } @else {
+            <div class="flex items-center gap-2 text-xs">
+              <button
+                type="button"
+                (click)="askDelete(h)"
+                class="flex-1 h-8 rounded-md border border-rose-500/40 text-rose-200 hover:bg-rose-500/10 transition"
+              >Eliminar hábito</button>
+            </div>
+          }
+        }
+
+        <!-- Mid row: streak + heatmap -->
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex flex-col">
+            <span
+              class="streak-num text-[90px]"
+              [class.cold]="streak(h) === 0"
+            >{{ streak(h) }}</span>
+            <span class="text-xs uppercase tracking-wider text-[var(--c-muted)] mt-1">
+              {{ streak(h) === 1 ? 'día seguido' : 'días seguidos' }}
+            </span>
+          </div>
+
+          <div class="heatmap">
+            @for (d of heatmapDays(); track d) {
+              <div
+                class="heatmap-cell"
+                [class.marked]="isMarked(h, d)"
+                [class.today]="isToday(d)"
+                [class.fresh]="isFreshCell(h, d)"
+              ></div>
+            }
+          </div>
+        </div>
+
+        <!-- Mark button -->
+        <button
+          type="button"
+          (click)="toggleToday(h)"
+          [class]="'btn-mark ' + (isMarkedToday(h) ? 'done' : 'pending')"
+        >
+          {{ isMarkedToday(h) ? '✓ Hecho hoy' : 'Marcar hoy' }}
+        </button>
+      </article>
+    }
+
+    <footer class="text-center text-xs text-[var(--c-muted)] py-2">
+      100% local. Tus hábitos nunca salen del dispositivo.
+    </footer>
+  </div>
+</main>

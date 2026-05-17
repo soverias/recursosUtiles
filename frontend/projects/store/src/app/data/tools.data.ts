@@ -64,4 +64,13 @@ export const TOOLS: Tool[] = [
     url: '/counter/',
     color: '#10b981',
   },
+  {
+    id: 'habit-tracker',
+    name: 'Hábitos',
+    description: 'Sigue tus hábitos diarios y construye rachas. Heatmap visual de los últimos 30 días.',
+    category: 'utilities',
+    icon: '🔥',
+    url: '/habit-tracker/',
+    color: '#f43f5e',
+  },
 ];

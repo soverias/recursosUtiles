@@ -17,6 +17,7 @@ RUN npm run build -- password-generator --configuration=production --base-href=/
 RUN npm run build -- qr-generator       --configuration=production --base-href=/qr-generator/
 RUN npm run build -- random-generator   --configuration=production --base-href=/random-generator/
 RUN npm run build -- counter            --configuration=production --base-href=/counter/
+RUN npm run build -- habit-tracker      --configuration=production --base-href=/habit-tracker/
 
 # ─── Stage 2: Runtime ─────────────────────────────────────────────────────────
 FROM nginx:alpine AS runtime
@@ -34,6 +35,7 @@ COPY --from=build /app/dist/password-generator/browser /usr/share/nginx/html/pas
 COPY --from=build /app/dist/qr-generator/browser       /usr/share/nginx/html/qr-generator/
 COPY --from=build /app/dist/random-generator/browser   /usr/share/nginx/html/random-generator/
 COPY --from=build /app/dist/counter/browser            /usr/share/nginx/html/counter/
+COPY --from=build /app/dist/habit-tracker/browser      /usr/share/nginx/html/habit-tracker/
 
 EXPOSE 80
 
