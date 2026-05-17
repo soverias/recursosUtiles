@@ -238,7 +238,13 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": "projects/habit-tracker/ngsw-config.json"
+              "serviceWorker": "projects/habit-tracker/ngsw-config.json",
+              "fileReplacements": [
+                {
+                  "replace": "projects/habit-tracker/src/environments/environment.ts",
+                  "with": "projects/habit-tracker/src/environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
