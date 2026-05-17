@@ -13,6 +13,11 @@
     <Project Path="src/BangGame/BangGame.Application/BangGame.Application.csproj" />
     <Project Path="src/BangGame/BangGame.Infrastructure/BangGame.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/Reminders/">
+    <Project Path="src/Reminders/Reminders.Domain/Reminders.Domain.csproj" />
+    <Project Path="src/Reminders/Reminders.Application/Reminders.Application.csproj" />
+    <Project Path="src/Reminders/Reminders.Infrastructure/Reminders.Infrastructure.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/RecursosUtiles.SharedKernel.Tests/RecursosUtiles.SharedKernel.Tests.csproj" />
   </Folder>

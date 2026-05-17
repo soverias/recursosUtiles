@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Auth\RecursosUtiles.Auth.Infrastructure\RecursosUtiles.Auth.Infrastructure.csproj" />
     <ProjectReference Include="..\BangGame\BangGame.Infrastructure\BangGame.Infrastructure.csproj" />
+    <ProjectReference Include="..\Reminders\Reminders.Infrastructure\Reminders.Infrastructure.csproj" />
     <ProjectReference Include="..\RecursosUtiles.SharedKernel\RecursosUtiles.SharedKernel.csproj" />
   </ItemGroup>
 

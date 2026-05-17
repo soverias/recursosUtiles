@@ -4,6 +4,7 @@ using BangGame.Infrastructure.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using RecursosUtiles.Api.Hubs;
+using Reminders.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,9 @@ builder.Services.AddControllers();
 
 // ── Bang Game (domain + application + infrastructure) ─────────────────────────
 builder.Services.AddBangGame(builder.Configuration);
+
+// ── Reminders (push notifications for habit-tracker) ──────────────────────────
+builder.Services.AddReminders(builder.Configuration);
 
 // ── Swagger (dev only) ────────────────────────────────────────────────────────
 if (builder.Environment.IsDevelopment())
