@@ -1,7 +1,10 @@
 {
-  "name": "bang-game",
-  "short_name": "bang-game",
+  "name": "Bang! Game",
+  "short_name": "Bang",
+  "description": "Duelo de reflejos multijugador: el primer toque tras la señal BANG gana. Tocar antes pierde.",
   "display": "standalone",
+  "background_color": "#1a0606",
+  "theme_color": "#b91c1c",
   "scope": "./",
   "start_url": "./",
   "icons": [
