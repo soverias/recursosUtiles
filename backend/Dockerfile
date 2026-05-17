@@ -11,6 +11,9 @@ COPY ["src/Auth/RecursosUtiles.Auth.Infrastructure/RecursosUtiles.Auth.Infrastru
 COPY ["src/BangGame/BangGame.Domain/BangGame.Domain.csproj",                              "src/BangGame/BangGame.Domain/"]
 COPY ["src/BangGame/BangGame.Application/BangGame.Application.csproj",                    "src/BangGame/BangGame.Application/"]
 COPY ["src/BangGame/BangGame.Infrastructure/BangGame.Infrastructure.csproj",              "src/BangGame/BangGame.Infrastructure/"]
+COPY ["src/Reminders/Reminders.Domain/Reminders.Domain.csproj",                           "src/Reminders/Reminders.Domain/"]
+COPY ["src/Reminders/Reminders.Application/Reminders.Application.csproj",                 "src/Reminders/Reminders.Application/"]
+COPY ["src/Reminders/Reminders.Infrastructure/Reminders.Infrastructure.csproj",           "src/Reminders/Reminders.Infrastructure/"]
 RUN dotnet restore "src/RecursosUtiles.Api/RecursosUtiles.Api.csproj"
 
 COPY . .
