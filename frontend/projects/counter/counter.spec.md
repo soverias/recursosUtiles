@@ -1,9 +1,7 @@
 ---
-status: spec-only
+status: implemented
 last_change: counter
 last_verified: 2026-05-17
-pending: |
-  - Implementación pendiente
 ---
 
 # Spec: counter
