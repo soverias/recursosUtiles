@@ -1,9 +1,9 @@
 ---
 status: implemented
-last_change: habit-tracker
+last_change: reminders-system
 last_verified: 2026-05-17
 pending: |
-  - Sistema de recordatorios push (próximo SDD: reminders-system)
+  - Validación E2E del flujo push desde móvil real (PWA instalada en Android Chrome / iOS Safari 16.4+)
 ---
 
 # Spec: habit-tracker
@@ -116,6 +116,31 @@ Marcar hoy MUST disparar vibración corta (~30 ms). Acciones destructivas (elimi
 ### Requirement: PWA instalable
 
 MUST tener manifest + service worker + iconos. Tras la primera carga funciona 100% offline. Datos siempre en IndexedDB local.
+
+### Requirement: Recordatorios push (opcional, requiere cuenta)
+
+El usuario MUST poder configurar un recordatorio diario por hábito a una hora local concreta. Implementado vía:
+- Backend `Reminders` module + Web Push protocol con VAPID
+- Custom Service Worker (`sw-custom.js` que extiende `ngsw-worker.js`) que consulta IndexedDB local al recibir push
+- Cuenta de usuario obligatoria (via `@shared/auth`)
+- Login flow inline en sheet/overlay `AuthSheetComponent`
+
+Ver contrato cross-cutting completo en `../../../specs/reminders-system.spec.md`.
+
+#### Scenario: Reminder con hábito ya marcado
+- GIVEN un hábito ya marcado como hecho hoy
+- WHEN el servidor envía la push del recordatorio
+- THEN el Service Worker MUST descartar silenciosamente sin mostrar notificación
+
+#### Scenario: Reminder con hábito pendiente
+- GIVEN un hábito sin marcar hoy
+- WHEN el servidor envía la push
+- THEN el Service Worker MUST mostrar notificación con `<emoji> <name> — ¿Hecho hoy?`
+
+#### Scenario: Cambio de timezone (viaje)
+- GIVEN el usuario abre la app desde una timezone distinta a la guardada
+- WHEN se inicia el componente
+- THEN MUST hacerse PUT silencioso a `/api/reminders` actualizando la timezone para todos los reminders del user
 
 ## UX en móvil
 
