@@ -2,8 +2,6 @@
 status: implemented
 last_change: reminders-system
 last_verified: 2026-05-17
-pending: |
-  - Validación E2E desde móvil real (depende del lado frontend)
 ---
 
 # Spec: Reminders module (backend)

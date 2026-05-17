@@ -2,8 +2,6 @@
 status: implemented
 last_change: reminders-system
 last_verified: 2026-05-17
-pending: |
-  - Validación E2E del flujo push desde móvil real (PWA instalada en Android Chrome / iOS Safari 16.4+)
 ---
 
 # Spec: habit-tracker

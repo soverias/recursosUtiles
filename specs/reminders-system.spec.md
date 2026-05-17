@@ -1,13 +1,10 @@
 ---
-status: partial
+status: implemented
 coverage:
   backend: implemented
   frontend: implemented
 last_change: reminders-system
 last_verified: 2026-05-17
-pending: |
-  - Validación E2E desde móvil real con PWA instalada (Android Chrome y iOS Safari 16.4+)
-  - Cierre del SDD vía /sdd-archive tras validación humana
 ---
 
 # Spec: reminders-system
