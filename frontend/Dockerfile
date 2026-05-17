@@ -15,6 +15,7 @@ RUN npm run build -- calculator         --configuration=production --base-href=/
 RUN npm run build -- bang-game          --configuration=production --base-href=/bang-game/
 RUN npm run build -- password-generator --configuration=production --base-href=/password-generator/
 RUN npm run build -- qr-generator       --configuration=production --base-href=/qr-generator/
+RUN npm run build -- random-generator   --configuration=production --base-href=/random-generator/
 
 # ─── Stage 2: Runtime ─────────────────────────────────────────────────────────
 FROM nginx:alpine AS runtime
@@ -30,6 +31,7 @@ COPY --from=build /app/dist/calculator/browser         /usr/share/nginx/html/cal
 COPY --from=build /app/dist/bang-game/browser          /usr/share/nginx/html/bang-game/
 COPY --from=build /app/dist/password-generator/browser /usr/share/nginx/html/password-generator/
 COPY --from=build /app/dist/qr-generator/browser       /usr/share/nginx/html/qr-generator/
+COPY --from=build /app/dist/random-generator/browser   /usr/share/nginx/html/random-generator/
 
 EXPOSE 80
 

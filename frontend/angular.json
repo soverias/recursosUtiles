@@ -203,6 +203,68 @@
         }
       }
     },
+    "random-generator": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/random-generator",
+      "sourceRoot": "projects/random-generator/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/random-generator/src/main.ts",
+            "tsConfig": "projects/random-generator/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/random-generator/public"
+              }
+            ],
+            "styles": ["projects/random-generator/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all",
+              "serviceWorker": "projects/random-generator/ngsw-config.json"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "random-generator:build:production"
+            },
+            "development": {
+              "buildTarget": "random-generator:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    },
     "qr-generator": {
       "projectType": "application",
       "schematics": {},

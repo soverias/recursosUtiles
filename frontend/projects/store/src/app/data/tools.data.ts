@@ -46,4 +46,13 @@ export const TOOLS: Tool[] = [
     url: '/qr-generator/',
     color: '#0ea5e9',
   },
+  {
+    id: 'random-generator',
+    name: 'Generador aleatorio',
+    description: 'Decide al azar con estilo: moneda animada, dado clásico y D20 para roleros. Más modos en camino.',
+    category: 'generators',
+    icon: '🎲',
+    url: '/random-generator/',
+    color: '#f59e0b',
+  },
 ];
