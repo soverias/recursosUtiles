@@ -24,6 +24,7 @@
   <Folder Name="/tests/Auth/">
     <Project Path="tests/Auth/RecursosUtiles.Auth.Application.Tests/RecursosUtiles.Auth.Application.Tests.csproj" />
     <Project Path="tests/Auth/RecursosUtiles.Auth.Domain.Tests/RecursosUtiles.Auth.Domain.Tests.csproj" />
+    <Project Path="tests/Auth/RecursosUtiles.Auth.Infrastructure.Tests/RecursosUtiles.Auth.Infrastructure.Tests.csproj" />
   </Folder>
   <Folder Name="/tests/BangGame/">
     <Project Path="tests/BangGame/BangGame.Tests/BangGame.Tests.csproj" />
